@@ -2,7 +2,29 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 
 // Variables
-@import 'variables';
+@import 'partials/variables';
+
+// Mixins
+@import 'partials/mixin';
+
+// General Settings
+@import 'partials/common';
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+// Guest
+@import 'partials/guest/about';
+@import 'partials/guest/blog';
+@import 'partials/guest/checkout';
+@import 'partials/guest/contact';
+@import 'partials/guest/faq';
+@import 'partials/guest/history';
+@import 'partials/guest/home';
+@import 'partials/guest/product';
+@import 'partials/guest/shop';
+@import 'partials/guest/team';
+
+// Admin
+@import 'partials/admin/dashboard';
+@import 'partials/admin/product';
