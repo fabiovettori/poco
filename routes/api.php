@@ -22,4 +22,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::namespace('Api')->group(function(){
     Route::get('/categories', 'CategoriesController@show');
     Route::get('/products', 'ProductsController@show');
-})
+});
