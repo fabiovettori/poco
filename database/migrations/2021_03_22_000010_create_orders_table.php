@@ -15,7 +15,7 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('dictails_order_id')->constrained('dictails_order');
+            $table->foreignId('details_order_id')->constrained('details_order');
             $table->foreignId('customers_id')->constrained('customers');
             $table->string('code', 30);
             $table->float('vat', 5, 2);
