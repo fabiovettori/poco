@@ -1,5 +1,5 @@
 // Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+@import 'partials/fonts';
 
 // Variables
 @import 'partials/variables';
@@ -13,6 +13,13 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+// Fontawesome
+$fa-font-path: '../fonts/fontawesome';
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+@import '~@fortawesome/fontawesome-free/scss/regular';
+@import '~@fortawesome/fontawesome-free/scss/solid';
+@import '~@fortawesome/fontawesome-free/scss/brands';
+
 // Guest
 @import 'partials/guest/about';
 @import 'partials/guest/blog';
@@ -24,6 +31,8 @@
 @import 'partials/guest/product';
 @import 'partials/guest/shop';
 @import 'partials/guest/team';
+    // segments
+    @import 'partials/guest/segments/header';
 
 // Admin
 @import 'partials/admin/dashboard';

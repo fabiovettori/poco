@@ -13,15 +13,15 @@
         <link rel="stylesheet" href=" {{ asset('css/app.css') }} ">
     </head>
     <body>
-        <header>
+        <header class="guest">
             @include('guest.partials.header')
         </header>
 
-        <main>
+        <main class="guest">
             @yield('guest.content')
         </main>
 
-        <footer>
+        <footer class="guest">
             @include('guest.partials.footer')
         </footer>
 
