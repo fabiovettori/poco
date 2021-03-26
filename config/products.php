@@ -1,0 +1,70 @@
+<?php
+
+return [
+    'combo' => [
+        ['images/products/combo/00.png', 'images/products/combo/01.png'],
+        ['images/products/combo/10.png', 'images/products/combo/11.png'],
+        ['images/products/combo/20.png', 'images/products/combo/21.png'],
+        ['images/products/combo/30.png', 'images/products/combo/31.png'],
+        ['images/products/combo/40.png', 'images/products/combo/41.png'],
+        ['images/products/combo/50.png', 'images/products/combo/51.png'],
+    ],
+    'kidsmenu' => [
+        ['images/products/kids_menu/00.png', 'images/products/kids_menu/01.png'],
+        ['images/products/kids_menu/10.png', 'images/products/kids_menu/11.png'],
+        ['images/products/kids_menu/20.png', 'images/products/kids_menu/21.png'],
+        ['images/products/kids_menu/30.png', 'images/products/kids_menu/31.png'],
+        ['images/products/kids_menu/40.png', 'images/products/kids_menu/41.png'],
+        ['images/products/kids_menu/50.png', 'images/products/kids_menu/51.png'],
+    ],
+    'pizza' => [
+        ['images/products/pizza/00.png', 'images/products/pizza/01.png'],
+        ['images/products/pizza/10.png', 'images/products/pizza/11.png'],
+        ['images/products/pizza/20.png', 'images/products/pizza/21.png'],
+        ['images/products/pizza/30.png', 'images/products/pizza/31.png'],
+        ['images/products/pizza/40.png', 'images/products/pizza/41.png'],
+        ['images/products/pizza/50.png', 'images/products/pizza/51.png'],
+    ],
+    'boxmeal' => [
+        ['images/products/box_meal/00.png', 'images/products/box_meal/01.png'],
+        ['images/products/box_meal/10.png', 'images/products/box_meal/11.png'],
+        ['images/products/box_meal/20.png', 'images/products/box_meal/21.png'],
+        ['images/products/box_meal/30.png', 'images/products/box_meal/31.png'],
+        ['images/products/box_meal/40.png', 'images/products/box_meal/41.png'],
+        ['images/products/box_meal/50.png', 'images/products/box_meal/51.png'],
+    ],
+    'burger' => [
+        ['images/products/burger/00.png', 'images/products/burger/01.png'],
+        ['images/products/burger/10.png', 'images/products/burger/11.png'],
+        ['images/products/burger/20.png', 'images/products/burger/21.png'],
+        ['images/products/burger/30.png', 'images/products/burger/31.png'],
+        ['images/products/burger/40.png', 'images/products/burger/41.png'],
+        ['images/products/burger/50.png', 'images/products/burger/51.png'],
+        ['images/products/burger/60.png', 'images/products/burger/61.png'],
+    ],
+    'chicken' => [
+        ['images/products/chicken/00.png', 'images/products/chicken/01.png'],
+        ['images/products/chicken/10.png', 'images/products/chicken/11.png'],
+        ['images/products/chicken/20.png', 'images/products/chicken/21.png'],
+        ['images/products/chicken/30.png', 'images/products/chicken/31.png'],
+        ['images/products/chicken/40.png', 'images/products/chicken/41.png'],
+        ['images/products/chicken/50.png', 'images/products/chicken/51.png'],
+    ],
+    'sauces' => [
+        ['images/products/sauces/00.png', 'images/products/sauces/01.png'],
+        ['images/products/sauces/10.png', 'images/products/sauces/11.png'],
+        ['images/products/sauces/20.png', 'images/products/sauces/21.png'],
+        ['images/products/sauces/30.png', 'images/products/sauces/31.png'],
+        ['images/products/sauces/40.png', 'images/products/sauces/41.png'],
+        ['images/products/sauces/50.png', 'images/products/sauces/51.png'],
+    ],
+    'colddrinks' => [
+        ['images/products/drinks/00.png', 'images/products/drinks/01.png'],
+        ['images/products/drinks/10.png', 'images/products/drinks/11.png'],
+        ['images/products/drinks/20.png', 'images/products/drinks/21.png'],
+        ['images/products/drinks/30.png', 'images/products/drinks/31.png'],
+        ['images/products/drinks/40.png', 'images/products/drinks/41.png'],
+        ['images/products/drinks/50.png', 'images/products/drinks/51.png'],
+        ['images/products/drinks/60.png', 'images/products/drinks/61.png'],
+    ]
+];
