@@ -18,6 +18,24 @@
                         </div>
                         <img src=" {{ asset('images/hero_pizza.png') }} " alt="pizza">
                     </div>
+                    <a class="text-uppercase" name="menus" href="#">Menus</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="categories">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <ul class="list-unstyled m-0">
+                        @foreach ($categories as $category)
+                            <li>
+                                <img src=" {{ $category->cover }}" alt=" {{ $category->name }} ">
+                                <span> {{ $category->name }} </span>
+                            </li>
+                        @endforeach
+                    </ul>
                 </div>
             </div>
         </div>

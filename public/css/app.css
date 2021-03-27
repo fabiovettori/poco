@@ -16254,6 +16254,65 @@ main.guest section.hero .call-to-action > div span:last-of-type {
   font-weight: 700;
   align-self: flex-start;
 }
+main.guest section.hero a[name=menus] {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateY(50%);
+  background-color: #ffc222;
+  border-radius: 8px;
+  padding: 20px 45px;
+  color: #1e1d23;
+  font-size: 14px;
+  font-weight: 700;
+  margin-right: 30px;
+  transition: all 0.3s ease;
+  z-index: 3;
+}
+main.guest section.hero a[name=menus]:hover {
+  text-decoration: none;
+  color: #fff;
+  background-color: #eeac00;
+}
+main.guest section.categories {
+  padding: 50px 0;
+}
+main.guest section.categories ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: stretch;
+}
+main.guest section.categories ul li {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  position: relative;
+}
+main.guest section.categories ul li:after {
+  content: url("../images/categories/category-hover.png");
+  position: absolute;
+  opacity: 0;
+  top: -20%;
+  transform: scale(0);
+  transition: all 0.3s ease;
+}
+main.guest section.categories ul li:hover span {
+  color: #ffc222;
+}
+main.guest section.categories ul li:hover:after {
+  transform: scale(0.6);
+  opacity: 1;
+}
+main.guest section.categories ul li span {
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 13px;
+  transition: all 0.1s ease;
+}
 
 header.guest > section:first-of-type {
   background-color: #1e1d23;
