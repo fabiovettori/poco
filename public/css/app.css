@@ -31,6 +31,11 @@
   font-family: "Gilroy";
 }
 
+.wrapper {
+  max-width: 1400px;
+  margin: auto;
+}
+
 /*!
  * Bootstrap v4.6.0 (https://getbootstrap.com/)
  * Copyright 2011-2021 The Bootstrap Authors
@@ -16312,6 +16317,85 @@ main.guest section.categories ul li span {
   font-weight: 700;
   font-size: 13px;
   transition: all 0.1s ease;
+}
+main.guest section.highlights {
+  background-color: #f7f2e2;
+  padding: 50px 0;
+}
+main.guest section.highlights .tile {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-radius: 5px;
+  padding: 25px 20px;
+  background-color: #fff;
+  height: 220px;
+  width: 100%;
+  position: relative;
+}
+main.guest section.highlights .tile:before {
+  content: url("../images/highlights-hamburger-bottom.png");
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%) scale(1);
+  transition: all 0.3s ease;
+}
+main.guest section.highlights .tile:hover:before {
+  transform: translateY(-50%) scale(1.15);
+}
+main.guest section.highlights .tile:after {
+  content: url("../images/highlights-hamburger.png");
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 30px;
+}
+main.guest section.highlights .tile h2 {
+  font-size: 28px;
+  line-height: 30px;
+  margin-bottom: 10px;
+  color: #1e1d23;
+  font-weight: 700;
+}
+main.guest section.highlights .tile p {
+  font-size: 12px;
+  text-transform: uppercase;
+  line-height: 20px;
+  margin-bottom: 15px;
+  color: #1e1d23;
+}
+main.guest section.highlights .tile span {
+  font-size: 20px;
+  font-weight: 700;
+  color: #00a149;
+}
+main.guest section.highlights .tile.exp {
+  background-color: #00a149;
+}
+main.guest section.highlights .tile.exp h2, main.guest section.highlights .tile.exp p {
+  color: #fff;
+}
+main.guest section.highlights .tile.exp span {
+  color: #ffc222;
+}
+main.guest section.highlights .tile.exp:after {
+  content: url("../images/highlights-burrito.png");
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 30px;
+}
+main.guest section.highlights .tile.location span {
+  color: #ffc222;
+  font-size: 14px;
+}
+main.guest section.highlights .tile.location:after {
+  content: url("../images/highlights-location.png");
+}
+main.guest section.highlights .tile.moon:before {
+  content: url("../images/highlights-location-bottom.png");
 }
 
 header.guest > section:first-of-type {

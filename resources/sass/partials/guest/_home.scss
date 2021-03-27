@@ -160,4 +160,98 @@ main.guest {
             }
         }
     }
+
+    section.highlights {
+        background-color: #f7f2e2;
+        padding: 50px 0;
+
+        .tile {
+            @include flex(column, space-between, flex-start);
+            border-radius: 5px;
+            padding: 25px 20px;
+            background-color: $light;
+            height: 220px;
+            width: 100%;
+            position: relative;
+
+            &:before {
+                content: url('../images/highlights-hamburger-bottom.png');
+                position: absolute;
+                top: 50%;
+                right: 20px;
+                transform: translateY(-50%) scale(1);
+                transition: all .3s ease;
+            }
+
+            &:hover:before {
+                transform: translateY(-50%) scale(1.15);
+            }
+
+            &:after {
+                content: url('../images/highlights-hamburger.png');
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                right: 30px;
+            }
+
+            h2 {
+                font-size: 28px;
+                line-height: 30px;
+                margin-bottom: 10px;
+                color: $dark;
+                font-weight: 700;
+            }
+
+            p {
+                font-size: 12px;
+                text-transform: uppercase;
+                line-height: 20px;
+                margin-bottom: 15px;
+                color: $dark;
+            }
+
+            span {
+                font-size: 20px;
+                font-weight: 700;
+                color: $secondary;
+            }
+        }
+
+        .tile.exp {
+            background-color: $secondary;
+
+            h2, p {
+                color: $light;
+            }
+            span {
+                color: $primary;
+            }
+
+            &:after {
+                content: url('../images/highlights-burrito.png');
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                right: 30px;
+            }
+        }
+
+        .tile.location {
+            span {
+                color: $primary;
+                font-size: 14px;
+            }
+
+            &:after {
+                content: url('../images/highlights-location.png');
+            }
+        }
+
+        .tile.moon {
+            &:before {
+                content: url('../images/highlights-location-bottom.png');
+            }
+        }
+    }
 }
