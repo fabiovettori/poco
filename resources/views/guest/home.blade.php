@@ -1,30 +1,25 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('guest.layouts.structure')
 
-        <title>Poco</title>
+@section('title', 'Home')
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-
-        <!-- Styles -->
-        <link rel="stylesheet" href=" {{ asset('css/app.css') }} ">
-    </head>
-    <body>
-        <header class="guest">
-            @include('guest.partials.header')
-        </header>
-
-        <main class="guest">
-            @yield('guest.content')
-        </main>
-
-        <footer class="guest">
-            @include('guest.partials.footer')
-        </footer>
-
-        <script src=" {{ asset('js/app.js') }} " charset="utf-8"></script>
-    </body>
-</html>
+@section('content')
+    <section class="hero">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="call-to-action">
+                        <h2 class="text-uppercase">Unlimited <br> medium <span>pizzas</span></h2>
+                        <h3>Medium 2-topping* pizza</h3>
+                        <p>*Additional charge for premium toppings. Minimum of 2 required.</p>
+                        <div>
+                            <a class="text-uppercase" href="#">order now</a>
+                            <span>$12.99</span>
+                            <span>$19.99</span>
+                        </div>
+                        <img src=" {{ asset('images/hero_pizza.png') }} " alt="pizza">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+@endsection
