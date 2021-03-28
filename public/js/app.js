@@ -1995,6 +1995,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Categories',
   mounted: function mounted() {
@@ -37814,7 +37817,9 @@ var render = function() {
           2
         )
       ])
-    ])
+    ]),
+    _vm._v(" "),
+    _vm._m(2)
   ])
 }
 var staticRenderFns = [
@@ -37832,6 +37837,18 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "cart" }, [
       _c("img", { attrs: { src: "images/cart.svg", alt: "cart" } })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-12 text-center" }, [
+      _c(
+        "a",
+        { staticClass: "text-uppercase", attrs: { name: "shop", href: "#" } },
+        [_vm._v("all products")]
+      )
     ])
   }
 ]

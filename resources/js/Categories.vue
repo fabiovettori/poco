@@ -35,6 +35,9 @@
                 </div>
             </div>
         </div>
+        <div class="col-12 text-center">
+            <a class="text-uppercase" name="shop" href="#">all products</a>
+        </div>
     </div>
 </template>
 

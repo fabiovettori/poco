@@ -65,21 +65,7 @@ main.guest {
                 @include flex(row, flex-start, center);
 
                 a {
-                    background-color: $primary;
-                    border-radius: 8px;
-                    padding: 20px 45px;
-                    color: $dark;
-                    font-size: 14px;
-                    font-weight: 700;
-                    margin-right: 30px;
-                    transition: all .3s ease;
-
-                    &:hover {
-                        box-shadow: 0 1px 5px 0 rgb(0 0 0 / 50%);
-                        text-decoration: none;
-                        color: $light;
-                        background-color: #eeac00;
-                    }
+                    @include button ($primary, $dark, #eeac00, $light);
                 }
                 span:first-of-type {
                     color: $secondary;
@@ -99,25 +85,11 @@ main.guest {
         }
 
         a[name='menus'] {
+            @include button ($primary, $dark, #eeac00, $light);
             position: absolute;
             left: 50%;
             bottom: 0;
             transform: translateY(50%);
-            background-color: $primary;
-            border-radius: 8px;
-            padding: 20px 45px;
-            color: $dark;
-            font-size: 14px;
-            font-weight: 700;
-            margin-right: 30px;
-            transition: all .3s ease;
-            z-index: 3;
-
-            &:hover {
-                text-decoration: none;
-                color: $light;
-                background-color: #eeac00;
-            }
         }
     }
 
@@ -294,6 +266,7 @@ main.guest {
             @include flex(row, flex-start, center);
             flex-wrap: wrap;
             position: relative;
+            padding-bottom: 50px;
 
             img[alt="pizza"]{
                 position: absolute;
@@ -442,6 +415,115 @@ main.guest {
 
             .tile:nth-of-type(4n + 4) {
                 margin-right: 0;
+            }
+        }
+
+        a[name='shop'] {
+            @include button ($primary, $dark, #eeac00, $light);
+        }
+    }
+
+    section.marketing {
+        background-image: url('../images/marketing.png');
+        background-position: 50% -10%;
+        background-repeat: no-repeat;
+        padding: 180px 0;
+        position: relative;
+
+        &:before {
+            content: '';
+            background-image: url('../images/marketing-bg.jpg');
+            background-position: center center;
+            background-repeat: no-repeat;
+            position: absolute;
+            z-index: -1;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%;
+        }
+
+        .right {
+            h2 {
+                font-size: 120px;
+                font-weight: 700;
+                color: $primary;
+                line-height: 125px;
+                text-shadow: 0 1px 5px rgb(0 0 0 / 50%);
+                margin-bottom: 30px;
+            }
+            h3 {
+                font-family: 'Norican';
+                font-size: 42px;
+                color: $light;
+                line-height: 45px;
+                text-shadow: 3px 0 4px #000;
+            }
+            a {
+                @include button ($light, $dark, $primary, $light);
+                display: inline-block;
+            }
+
+            &:before, &:after {
+                background-image: url('../images/thunder.png');
+                background-repeat: no-repeat;
+                content: '';
+                position: absolute;
+                width: 100px;
+                height: 100px;
+                z-index: 1;
+                top: 0;
+
+            }
+
+            &:before {
+                right: 20%;
+                transform: rotateZ(42deg);
+            }
+
+            &:after {
+                top: -20%;
+                right: 25%;
+                transform: rotateZ(0deg);
+            }
+        }
+
+        .left {
+            text-align: center;
+            position: relative;
+
+            h2 {
+                font-size: 40px;
+                line-height: 1;
+                font-weight: 700;
+                color: $primary;
+                position: relative;
+                z-index: 2;
+
+                span {
+                    color: $dark;
+                }
+
+            }
+            h5 {
+                font-family: 'Norican';
+                font-size: 16px;
+                color: $dark;
+                position: relative;
+                z-index: 2;
+            }
+
+            &:after {
+                background-image: url('../images/think.png');
+                background-repeat: no-repeat;
+                content: '';
+                position: absolute;
+                width: 200px;
+                height: 200px;
+                left: 50%;
+                transform: translate(-50%, -15%);
+                top: 0;
+                z-index: 1;
             }
         }
     }

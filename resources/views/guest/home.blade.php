@@ -94,4 +94,23 @@
             </div>
         </div>
     </section>
+
+    <section class="marketing">
+        <div class="wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-6 left">
+                        <h5>Get Up to</h5>
+                        <h2>50% <br> <span class="text-uppercase">off</span> </h2>
+                    </div>
+
+                    <div class="col-6 right">
+                        <h3 class="text-capitalize">hot fresh</h3>
+                        <h2 class="text-uppercase">hot dog</h2>
+                        <a class="text-uppercase" name="shop" href="#">order now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 @endsection

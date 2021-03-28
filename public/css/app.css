@@ -24,6 +24,11 @@
   src: url("../fonts/gilroy/Gilroy-Heavy.ttf") format("truetype");
   font-weight: 900;
 }
+@font-face {
+  font-family: "Norican";
+  src: url("../fonts/norican/Norican-Regular.ttf") format("truetype");
+  font-weight: 500;
+}
 * {
   margin: 0;
   padding: 0;
@@ -16239,12 +16244,12 @@ main.guest section.hero .call-to-action > div a {
   font-weight: 700;
   margin-right: 30px;
   transition: all 0.3s ease;
+  z-index: 3;
 }
 main.guest section.hero .call-to-action > div a:hover {
-  box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.5);
+  background-color: #eeac00;
   text-decoration: none;
   color: #fff;
-  background-color: #eeac00;
 }
 main.guest section.hero .call-to-action > div span:first-of-type {
   color: #00a149;
@@ -16260,10 +16265,6 @@ main.guest section.hero .call-to-action > div span:last-of-type {
   align-self: flex-start;
 }
 main.guest section.hero a[name=menus] {
-  position: absolute;
-  left: 50%;
-  bottom: 0;
-  transform: translateY(50%);
   background-color: #ffc222;
   border-radius: 8px;
   padding: 20px 45px;
@@ -16273,11 +16274,15 @@ main.guest section.hero a[name=menus] {
   margin-right: 30px;
   transition: all 0.3s ease;
   z-index: 3;
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateY(50%);
 }
 main.guest section.hero a[name=menus]:hover {
+  background-color: #eeac00;
   text-decoration: none;
   color: #fff;
-  background-color: #eeac00;
 }
 main.guest section.categories {
   padding: 50px 0;
@@ -16437,6 +16442,7 @@ main.guest section.popular-dishes div.dishes {
   align-items: center;
   flex-wrap: wrap;
   position: relative;
+  padding-bottom: 50px;
 }
 main.guest section.popular-dishes div.dishes img[alt=pizza] {
   position: absolute;
@@ -16564,6 +16570,126 @@ main.guest section.popular-dishes div.dishes .tile .cart img {
 }
 main.guest section.popular-dishes div.dishes .tile:nth-of-type(4n + 4) {
   margin-right: 0;
+}
+main.guest section.popular-dishes a[name=shop] {
+  background-color: #ffc222;
+  border-radius: 8px;
+  padding: 20px 45px;
+  color: #1e1d23;
+  font-size: 14px;
+  font-weight: 700;
+  margin-right: 30px;
+  transition: all 0.3s ease;
+  z-index: 3;
+}
+main.guest section.popular-dishes a[name=shop]:hover {
+  background-color: #eeac00;
+  text-decoration: none;
+  color: #fff;
+}
+main.guest section.marketing {
+  background-image: url("../images/marketing.png");
+  background-position: 50% -10%;
+  background-repeat: no-repeat;
+  padding: 180px 0;
+  position: relative;
+}
+main.guest section.marketing:before {
+  content: "";
+  background-image: url("../images/marketing-bg.jpg");
+  background-position: center center;
+  background-repeat: no-repeat;
+  position: absolute;
+  z-index: -1;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+}
+main.guest section.marketing .right h2 {
+  font-size: 120px;
+  font-weight: 700;
+  color: #ffc222;
+  line-height: 125px;
+  text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+  margin-bottom: 30px;
+}
+main.guest section.marketing .right h3 {
+  font-family: "Norican";
+  font-size: 42px;
+  color: #fff;
+  line-height: 45px;
+  text-shadow: 3px 0 4px #000;
+}
+main.guest section.marketing .right a {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 20px 45px;
+  color: #1e1d23;
+  font-size: 14px;
+  font-weight: 700;
+  margin-right: 30px;
+  transition: all 0.3s ease;
+  z-index: 3;
+  display: inline-block;
+}
+main.guest section.marketing .right a:hover {
+  background-color: #ffc222;
+  text-decoration: none;
+  color: #fff;
+}
+main.guest section.marketing .right:before, main.guest section.marketing .right:after {
+  background-image: url("../images/thunder.png");
+  background-repeat: no-repeat;
+  content: "";
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  z-index: 1;
+  top: 0;
+}
+main.guest section.marketing .right:before {
+  right: 20%;
+  transform: rotateZ(42deg);
+}
+main.guest section.marketing .right:after {
+  top: -20%;
+  right: 25%;
+  transform: rotateZ(0deg);
+}
+main.guest section.marketing .left {
+  text-align: center;
+  position: relative;
+}
+main.guest section.marketing .left h2 {
+  font-size: 40px;
+  line-height: 1;
+  font-weight: 700;
+  color: #ffc222;
+  position: relative;
+  z-index: 2;
+}
+main.guest section.marketing .left h2 span {
+  color: #1e1d23;
+}
+main.guest section.marketing .left h5 {
+  font-family: "Norican";
+  font-size: 16px;
+  color: #1e1d23;
+  position: relative;
+  z-index: 2;
+}
+main.guest section.marketing .left:after {
+  background-image: url("../images/think.png");
+  background-repeat: no-repeat;
+  content: "";
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  left: 50%;
+  transform: translate(-50%, -15%);
+  top: 0;
+  z-index: 1;
 }
 
 header.guest > section:first-of-type {
