@@ -79,4 +79,19 @@
             </div>
         </div>
     </section>
+
+    <section class="popular-dishes">
+        <div class="wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <h2 class="text-center title">Popular dishes</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid" id="categories">
+                <categories-component />
+            </div>
+        </div>
+    </section>
 @endsection

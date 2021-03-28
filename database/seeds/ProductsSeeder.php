@@ -37,7 +37,7 @@ class ProductsSeeder extends Seeder
             }
             $new_product->slug = $slug;
 
-            $new_product->short_description = $faker->text(150);
+            $new_product->short_description = $faker->text(90);
             $new_product->long_description = $faker->text(300);
             $new_product->save();
 
