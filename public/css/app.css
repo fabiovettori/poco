@@ -16198,6 +16198,8 @@ main.guest section.hero img[alt=pizza] {
   right: -15%;
   top: 10%;
   z-index: 1;
+  -webkit-animation: pizza 10s ease;
+          animation: pizza 10s ease;
 }
 main.guest section.hero .call-to-action {
   padding: 250px 0;

@@ -2,7 +2,9 @@
     <div class="row">
         <div class="col-12">
             <ul class="list-unstyled">
-                <li class="text-uppercase" v-for="(category, index) in categoriesMenu" :class="index == 0 ? 'active' : ''"> {{ category.name }} </li>
+                <li class="text-uppercase" v-for="(category, index) in categoriesMenu" :class="index == categoryIndex ? 'active' : ''" @click="products(index)">
+                    <span> {{ category.name }} </span>
+                </li>
             </ul>
         </div>
         <div class="col-12">
@@ -43,14 +45,15 @@
 
 <script>
     export default {
-        name: 'Categories',
+        name: 'Products',
         mounted() {
             this.categories();
         },
         data(){
             return {
                 categoriesMenu: [],
-                categoryActive: '',
+                categoryActive: null,
+                categoryIndex: 0,
                 filteredProducts: [],
             }
         },
@@ -61,14 +64,16 @@
                 .get('http://localhost:8000/api/categories')
                 .then(function(response){
                     self.categoriesMenu = response.data.categories;
-
-                    if (self.categoryActive == '') {
-                        self.categoryActive = self.categoriesMenu[0].name;
-                        self.products();
-                    };
+                    self.products(0);
+                })
+                .catch(function() {
+                    console.warn('error');
                 })
             },
-            products(){
+            products(index){
+                this.categoryIndex = index;
+                this.categoryActive = this.categoriesMenu[index].name;
+
                 const self = this;
                 axios
                 .get('http://localhost:8000/api/products', {
@@ -79,6 +84,9 @@
                 .then(function(response){
                     self.filteredProducts = response.data.products;
                     console.log(self.filteredProducts);
+                })
+                .catch(function() {
+                    console.warn('error');
                 })
             },
             beforePrice(actualPice, discount){
