@@ -114,7 +114,7 @@
         name: 'home-vue',
         components: {
             Products,
-            Categories
+            Categories,
         },
         mounted(){
             console.log('Home mounted');

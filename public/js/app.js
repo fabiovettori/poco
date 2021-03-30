@@ -50562,6 +50562,11 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('home-vue', __webpack_require__(/*! ./Home.vue */ "./resources/js/Home.vue")["default"]);
+Vue.mixin({
+  methods: {
+    route: route
+  }
+});
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
