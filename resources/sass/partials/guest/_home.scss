@@ -665,7 +665,6 @@ main.guest {
             div.description {
                 position: relative;
                 padding: 120px 0;
-                z-index: 1;
 
                 h2 {
                     text-transform: capitalize;
@@ -706,12 +705,31 @@ main.guest {
                 }
             }
 
+            &:before {
+                content: '';
+                background-image: url('../images/offerts-hover.png');
+                position: absolute;
+                z-index: 0;
+                width: 100%;
+                height: 100%;
+                top: 50%;
+                right: -20%;
+                transform: translateY(-50%) scale(0);
+                height: 100%;
+                transition: all .3s ease;
+            }
+
+            &:hover:before {
+                transform: translateY(-50%) scale(1);
+            }
+
             &:after {
                 content: '';
                 background-size: auto 100%;
                 background-repeat: no-repeat;
                 background-position: left;
                 position: absolute;
+                z-index: 1;
                 right: -40%;
                 top: 50%;
                 transform: translateY(-50%);
