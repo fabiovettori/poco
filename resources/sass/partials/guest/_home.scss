@@ -191,7 +191,10 @@ main.guest {
         }
 
         .tile.exp {
-            background-color: $secondary;
+            background-image: url('../images/highlights-burrito-top.jpg');
+            background-position: right;
+            background-size: cover;
+            background-repeat: no-repeat;
 
             h2, p {
                 color: $light;
@@ -649,6 +652,122 @@ main.guest {
                     background-color: $primary;
                     cursor: pointer;
                 }
+            }
+        }
+    }
+
+    section.offers {
+
+        div[class*="col"]{
+            overflow: hidden;
+            position: relative;
+
+            div.description {
+                position: relative;
+                padding: 120px 0;
+                z-index: 1;
+
+                h2 {
+                    text-transform: capitalize;
+                    font-size: 90px;
+                    line-height: 90px;
+                    font-weight: 700;
+                }
+
+                h3 {
+                    text-transform: capitalize;
+                    font-family: 'Norican';
+                    font-weight: 700;
+                    font-size: 42px;
+                    line-height: 45px;
+                    color: $light;
+                }
+
+                p {
+                    text-transform: uppercase;
+                    color: $light;
+                    font-size: 18px;
+                    line-height: 26px;
+                }
+
+                span {
+                    text-transform: uppercase;
+                    display: block;
+                    font-size: 40px;
+                    line-height: 45px;
+                    font-weight: 700;
+                    margin-bottom: 30px;
+                }
+
+                a {
+                    text-transform: uppercase;
+                    display: inline-block;
+                    @include button ($light, $dark, $dark, $light);
+                }
+            }
+
+            &:after {
+                content: '';
+                background-size: auto 100%;
+                background-repeat: no-repeat;
+                background-position: left;
+                position: absolute;
+                right: -40%;
+                top: 50%;
+                transform: translateY(-50%);
+                height: 80%;
+                width: 100%;
+            }
+        }
+
+        div[class*="col"]:first-of-type {
+            background-color: $secondary;
+
+            h2 {
+                color: #ffcd02;
+                text-shadow: 2px 0 6px #db731e;
+            }
+
+            span {
+                color: $primary;
+            }
+
+            &:after {
+                background-image: url('../images/offers_01.png');
+            }
+        }
+
+        div[class*="col"]:nth-of-type(2) {
+            background-color: #db731e;
+
+            h2 {
+                color: #ffcd02;
+                text-shadow: 2px 0 6px #db731e;
+            }
+
+            span {
+                color: $primary;
+            }
+
+            &:after {
+                background-image: url('../images/offers_02.png');
+            }
+        }
+
+        div[class*="col"]:last-of-type {
+            background-color: #ffc900;
+
+            h2 {
+                color: #cd4414;
+                text-shadow: 2px 0 6px #ffc900;
+            }
+
+            span {
+                color: $dark;
+            }
+
+            &:after {
+                background-image: url('../images/offers_03.png');
             }
         }
     }

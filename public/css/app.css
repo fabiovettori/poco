@@ -16377,7 +16377,10 @@ main.guest section.highlights .tile span {
   color: #00a149;
 }
 main.guest section.highlights .tile.exp {
-  background-color: #00a149;
+  background-image: url("../images/highlights-burrito-top.jpg");
+  background-position: right;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 main.guest section.highlights .tile.exp h2, main.guest section.highlights .tile.exp p {
   color: #fff;
@@ -16810,6 +16813,112 @@ main.guest section.testimonials .markers span {
 main.guest section.testimonials .markers span:hover {
   background-color: #ffc222;
   cursor: pointer;
+}
+main.guest section.offers div[class*=col] {
+  overflow: hidden;
+  position: relative;
+}
+main.guest section.offers div[class*=col] div.description {
+  position: relative;
+  padding: 120px 0;
+  z-index: 1;
+}
+main.guest section.offers div[class*=col] div.description h2 {
+  text-transform: capitalize;
+  font-size: 90px;
+  line-height: 90px;
+  font-weight: 700;
+}
+main.guest section.offers div[class*=col] div.description h3 {
+  text-transform: capitalize;
+  font-family: "Norican";
+  font-weight: 700;
+  font-size: 42px;
+  line-height: 45px;
+  color: #fff;
+}
+main.guest section.offers div[class*=col] div.description p {
+  text-transform: uppercase;
+  color: #fff;
+  font-size: 18px;
+  line-height: 26px;
+}
+main.guest section.offers div[class*=col] div.description span {
+  text-transform: uppercase;
+  display: block;
+  font-size: 40px;
+  line-height: 45px;
+  font-weight: 700;
+  margin-bottom: 30px;
+}
+main.guest section.offers div[class*=col] div.description a {
+  text-transform: uppercase;
+  display: inline-block;
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 20px 45px;
+  color: #1e1d23;
+  font-size: 14px;
+  font-weight: 700;
+  margin-right: 30px;
+  transition: all 0.3s ease;
+  z-index: 3;
+}
+main.guest section.offers div[class*=col] div.description a:hover {
+  background-color: #1e1d23;
+  text-decoration: none;
+  color: #fff;
+}
+main.guest section.offers div[class*=col]:after {
+  content: "";
+  background-size: auto 100%;
+  background-repeat: no-repeat;
+  background-position: left;
+  position: absolute;
+  right: -40%;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 80%;
+  width: 100%;
+}
+main.guest section.offers div[class*=col]:first-of-type {
+  background-color: #00a149;
+}
+main.guest section.offers div[class*=col]:first-of-type h2 {
+  color: #ffcd02;
+  text-shadow: 2px 0 6px #db731e;
+}
+main.guest section.offers div[class*=col]:first-of-type span {
+  color: #ffc222;
+}
+main.guest section.offers div[class*=col]:first-of-type:after {
+  background-image: url("../images/offers_01.png");
+}
+main.guest section.offers div[class*=col]:nth-of-type(2) {
+  background-color: #db731e;
+}
+main.guest section.offers div[class*=col]:nth-of-type(2) h2 {
+  color: #ffcd02;
+  text-shadow: 2px 0 6px #db731e;
+}
+main.guest section.offers div[class*=col]:nth-of-type(2) span {
+  color: #ffc222;
+}
+main.guest section.offers div[class*=col]:nth-of-type(2):after {
+  background-image: url("../images/offers_02.png");
+}
+main.guest section.offers div[class*=col]:last-of-type {
+  background-color: #ffc900;
+}
+main.guest section.offers div[class*=col]:last-of-type h2 {
+  color: #cd4414;
+  text-shadow: 2px 0 6px #ffc900;
+}
+main.guest section.offers div[class*=col]:last-of-type span {
+  color: #1e1d23;
+}
+main.guest section.offers div[class*=col]:last-of-type:after {
+  background-image: url("../images/offers_03.png");
 }
 
 header.guest > section:first-of-type {

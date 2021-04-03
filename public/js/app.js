@@ -2072,6 +2072,40 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -38044,7 +38078,9 @@ var render = function() {
     _vm._v(" "),
     _c("section", { staticClass: "testimonials" }, [
       _c("div", { staticClass: "wrapper" }, [_c("Testimonials")], 1)
-    ])
+    ]),
+    _vm._v(" "),
+    _vm._m(4)
   ])
 }
 var staticRenderFns = [
@@ -38210,6 +38246,70 @@ var staticRenderFns = [
                 },
                 [_vm._v("order now")]
               )
+            ])
+          ])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("section", { staticClass: "offers" }, [
+      _c("div", { staticClass: "container-fluid" }, [
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-4" }, [
+            _c("div", { staticClass: "description" }, [
+              _c("h3", [_vm._v("fast food")]),
+              _vm._v(" "),
+              _c("h2", [_vm._v("meals")]),
+              _vm._v(" "),
+              _c("p", [
+                _vm._v("new phonomenon "),
+                _c("br"),
+                _vm._v(" burger taste")
+              ]),
+              _vm._v(" "),
+              _c("span", [_vm._v("$19.90")]),
+              _vm._v(" "),
+              _c("a", { attrs: { href: "#" } }, [_vm._v("order now")])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-4" }, [
+            _c("div", { staticClass: "description" }, [
+              _c("h3", [_vm._v("house")]),
+              _vm._v(" "),
+              _c("h2", [_vm._v("burgers")]),
+              _vm._v(" "),
+              _c("p", [
+                _vm._v("new phonomenon "),
+                _c("br"),
+                _vm._v(" burger taste")
+              ]),
+              _vm._v(" "),
+              _c("span", [_vm._v("$12.90")]),
+              _vm._v(" "),
+              _c("a", { attrs: { href: "#" } }, [_vm._v("order now")])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-4" }, [
+            _c("div", { staticClass: "description" }, [
+              _c("h3", [_vm._v("hot fresh")]),
+              _vm._v(" "),
+              _c("h2", [_vm._v("salats")]),
+              _vm._v(" "),
+              _c("p", [
+                _vm._v("new phonomenon "),
+                _c("br"),
+                _vm._v(" burger taste")
+              ]),
+              _vm._v(" "),
+              _c("span", [_vm._v("$10.90")]),
+              _vm._v(" "),
+              _c("a", { attrs: { href: "#" } }, [_vm._v("order now")])
             ])
           ])
         ])

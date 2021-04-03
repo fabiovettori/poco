@@ -109,6 +109,40 @@
                 <Testimonials />
             </div>
         </section>
+
+        <section class="offers">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-4">
+                        <div class="description">
+                            <h3>fast food</h3>
+                            <h2>meals</h2>
+                            <p>new phonomenon <br> burger taste</p>
+                            <span>$19.90</span>
+                            <a href="#">order now</a>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="description">
+                            <h3>house</h3>
+                            <h2>burgers</h2>
+                            <p>new phonomenon <br> burger taste</p>
+                            <span>$12.90</span>
+                            <a href="#">order now</a>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="description">
+                            <h3>hot fresh</h3>
+                            <h2>salats</h2>
+                            <p>new phonomenon <br> burger taste</p>
+                            <span>$10.90</span>
+                            <a href="#">order now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
 </template>
 
