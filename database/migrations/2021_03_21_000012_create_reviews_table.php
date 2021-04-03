@@ -17,7 +17,7 @@ class CreateReviewsTable extends Migration
             $table->id();
             $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
             $table->foreignId('customer_id')->constrained('customers')->onDelete('no action');
-            $table->integer('score');
+            $table->smallInteger('score');
             $table->text('description');
             $table->timestamps();
         });

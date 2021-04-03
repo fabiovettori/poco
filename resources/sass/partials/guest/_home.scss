@@ -22,10 +22,9 @@ main.guest {
         img[alt='pizza'] {
             position: absolute;
             height: 80%;
-            right: -15%;
+            right: 5%;
             top: 10%;
             z-index: 1;
-            animation: pizza 10s ease;
         }
 
         .call-to-action {
@@ -525,6 +524,131 @@ main.guest {
                 transform: translate(-50%, -15%);
                 top: 0;
                 z-index: 1;
+            }
+        }
+    }
+
+    section.testimonials {
+        background-color: #f7f2e2;
+        padding: 80px 0;
+
+        h3 {
+            font-size: 42px;
+            line-height: 45px;
+            font-weight: 700;
+            color: $dark;
+            margin-bottom: 40px;
+        }
+
+        .carousel {
+            position: relative;
+
+            ul {
+                @include flex(row, flex-start, center);
+                flex-wrap: nowrap;
+                position: relative;
+                overflow: hidden;
+
+                .tile {
+                    width: calc((100% / 3) - 20px);
+                    height: 250px;
+                    background-color: $light;
+                    border-radius: 8px;
+                    padding: 40px;
+                    flex-shrink: 0;
+                    margin: 0 15px;
+
+                    .avatar {
+                        position: relative;
+                        img {
+                            width: 70px;
+                            height: 70px;
+                            object-fit: cover;
+                            border-radius: 50%;
+                            flex-basis: 20%;
+                        }
+
+                        &:after {
+                            @include flex(row, center, center);
+                            content: '\f10d';
+                            font-family: 'Font Awesome 5 Free';
+                            font-size: 10px;
+                            font-weight: bold;
+                            position: absolute;
+                            bottom: 0;
+                            right: 0;
+                            color: $light;
+                            background-color: #00a149;
+                            border-radius: 50%;
+                            height: 25px;
+                            width: 25px;
+                        }
+                    }
+
+                    .details {
+                        @include flex(row, space-between, center);
+                        flex-basis: 80%;
+
+                        > span {
+                            text-transform: uppercase;
+                            font-size: 15px;
+                            color: $dark;
+                            font-weight: 700;
+                        }
+
+                        .stars {
+                            color: $primary;
+                        }
+                    }
+
+                    p.description {
+                        font-size: 15px;
+                        color: #808080;
+                    }
+                }
+            }
+
+            .controls {
+                position: absolute;
+                z-index: 1;
+                transform: translateY(-50%);
+                font-size: 32px;
+                opacity: .2;
+                border-radius: 50%;
+                top: 50%;
+
+                &:hover {
+                    cursor: pointer;
+                    opacity: 1;
+                }
+
+                &.next {
+                    right: -40px;
+                }
+
+                &.prev {
+                    left: -40px;
+                }
+            }
+        }
+
+        .markers {
+            @include flex(row, space-between, center);
+            margin: auto;
+            width: 80px;
+
+            span {
+                display: block;
+                width: 8px;
+                height: 8px;
+                background-color: rgba($primary, .3);
+                border-color: $primary;
+                border-radius: 50%;
+
+                &:hover {
+                    background-color: $primary;
+                    cursor: pointer;
+                }
             }
         }
     }

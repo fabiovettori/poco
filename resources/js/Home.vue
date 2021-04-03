@@ -14,13 +14,13 @@
                                     <span>$12.99</span>
                                     <span>$19.99</span>
                                 </div>
-                                <img src="images/hero_pizza.png" alt="pizza">
                             </div>
                             <a class="text-uppercase" name="menus" href="#">Menus</a>
                         </div>
                     </div>
                 </div>
             </div>
+            <img src="images/hero_pizza.png" alt="pizza">
         </section>
 
         <section class="categories">
@@ -103,18 +103,26 @@
                 </div>
             </div>
         </section>
+
+        <section class="testimonials">
+            <div class="wrapper">
+                <Testimonials />
+            </div>
+        </section>
     </div>
 </template>
 
 <script>
     import Categories from './components/Categories';
     import Products from './components/Products';
+    import Testimonials from './components/Testimonials';
 
     export default {
         name: 'home-vue',
         components: {
             Products,
             Categories,
+            Testimonials,
         },
         mounted(){
             console.log('Home mounted');
