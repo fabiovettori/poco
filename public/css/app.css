@@ -41,6 +41,35 @@
   margin: auto;
 }
 
+section.errors {
+  background-color: #fbf7e8;
+  padding: 150px 0;
+}
+section.errors img {
+  margin-bottom: 35px;
+}
+section.errors h1 {
+  color: #1e1d23;
+  font-weight: 700;
+  font-size: 60px;
+  margin-bottom: 32px;
+}
+section.errors p {
+  color: #1e1d23;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 36px;
+}
+section.errors p a:hover {
+  text-decoration: none;
+}
+section.errors p a:first-of-type {
+  color: #ffc222;
+}
+section.errors p a:last-of-type {
+  color: #00a149;
+}
+
 /*!
  * Bootstrap v4.6.0 (https://getbootstrap.com/)
  * Copyright 2011-2021 The Bootstrap Authors
@@ -16487,7 +16516,7 @@ main.guest section.popular-dishes div.dishes .tile .wishlist {
   top: 20px;
   right: 20px;
   font-size: 21px;
-  z-index: 2;
+  z-index: 3;
 }
 main.guest section.popular-dishes div.dishes .tile .wishlist:hover {
   cursor: pointer;

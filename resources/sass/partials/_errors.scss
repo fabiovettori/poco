@@ -1,0 +1,36 @@
+section.errors {
+    background-color: #fbf7e8;
+    padding: 150px 0;
+
+    img {
+        margin-bottom: 35px;
+    }
+
+    h1 {
+        color: $dark;
+        font-weight: 700;
+        font-size: 60px;
+        margin-bottom: 32px;
+    }
+
+    p {
+        color: $dark;
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 36px;
+
+        a {
+            &:hover {
+                text-decoration: none;
+            }
+        }
+
+        a:first-of-type {
+            color: $primary;
+        }
+
+        a:last-of-type {
+            color: $secondary;
+        }
+    }
+}
