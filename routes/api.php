@@ -20,7 +20,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::namespace('Api')->group(function(){
+    // Home
     Route::get('/categories', 'CategoriesController@show');
     Route::get('/products', 'ProductsController@show');
     Route::get('/testimonials', 'TestimonialsController@show');
+
+    // Product
+    Route::get('/poco/product', 'ProductController@show');
 });

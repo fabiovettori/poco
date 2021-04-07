@@ -19,7 +19,7 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('home-vue', require('./Home.vue').default);
+Vue.component('product-vue', require('./Product.vue').default);
 
 Vue.mixin({ methods: { route }});
 
@@ -29,6 +29,7 @@ Vue.mixin({ methods: { route }});
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-const home = new Vue({
-    el: '#home-vue',
+
+const product = new Vue({
+    el: '#product-vue',
 });

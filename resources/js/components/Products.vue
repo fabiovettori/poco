@@ -10,7 +10,7 @@
         <div class="col-12">
             <div class="row">
                 <div class="col-12 dishes">
-                    <div class="tile" v-for="(product, index) in filteredProducts">
+                    <a :href="route('product', {slug: product.slug})" class="tile" v-for="(product, index) in filteredProducts">
                         <div class="wishlist">
                             <span class="fas fa-heart"></span>
                         </div>
@@ -19,18 +19,20 @@
                             <div class="overlay"></div>
                         </div>
                         <div class="rating">
-                            <span v-for="i in 5" class="fa-star" :class="i <= stars(index) ? 'fas full' : 'fal'"></span>
+                            <span v-for="i in 5" class="fa-star" :class="i <= stars(index) ? 'fas' : 'fal'"></span>
                         </div>
                         <div class="details">
-                            <a href="#"> {{ product.name }} </a>
+                            <h2> {{ product.name }} </h2>
                             <p> {{ product.short_description }} </p>
-                            <span class="mr-2"> ${{ beforePrice(product.configs[0].price, product.configs[0].discount) }} </span>
-                            <span> ${{ product.configs[0].price }} </span>
+                            <div class="price">
+                                <span class="mr-2"> ${{ beforePrice(product.configs[0].price, product.configs[0].discount) }} </span>
+                                <span> ${{ product.configs[0].price }} </span>
+                            </div>
                         </div>
                         <div class="cart">
-                            <img src="images/cart.svg" alt="cart">
+                            <!-- cart image -->
                         </div>
-                    </div>
+                    </a>
                     <img src="images/bg-dishes-pizza.png" alt="pizza">
                     <img src="images/bg-dishes-meat.png" alt="meat">
                     <img src="images/bg-dishes-pepper.png" alt="pepper">
@@ -38,7 +40,7 @@
             </div>
         </div>
         <div class="col-12 text-center">
-            <a class="text-uppercase" name="shop" href="#">all products</a>
+            <a class="text-uppercase" name="shop" :href="route('shop')">all products</a>
         </div>
     </div>
 </template>
@@ -110,7 +112,3 @@
         }
     }
 </script>
-
-<style>
-
-</style>

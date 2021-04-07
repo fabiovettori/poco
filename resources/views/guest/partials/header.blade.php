@@ -29,25 +29,27 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-7 links d-flex">
-                    <img src=" {{ asset('images/logo.svg') }} " alt="poco logo">
+                    <a href=" {{ route('home') }} " class="logo">
+                        <img src=" {{ asset('images/logo.svg') }} " alt="poco logo">
+                    </a>
                     <ul class="list-unstyled d-flex justify-content-between align-items-center m-0">
                         <li>
-                            <a class="active" href="#">Home</a>
+                            <a class=" {{ Route::currentRouteName() == 'home' ? 'active' : '' }} " href=" {{ route('home') }} ">Home</a>
                         </li>
                         <li>
-                            <a href="#">Menu</a>
+                            <a class=" {{ Route::currentRouteName() == 'shop' ? 'menu' : '' }}" href="#">Menu</a>
                         </li>
                         <li>
-                            <a href="#">About</a>
+                            <a class=" {{ Route::currentRouteName() == 'about' ? 'active' : '' }}" href="#">About</a>
                         </li>
                         <li>
-                            <a href="#">Shop</a>
+                            <a class=" {{ Route::currentRouteName() == 'shop' ? 'active' : '' }}" href=" {{ route('shop') }} ">Shop</a>
                         </li>
                         <li>
-                            <a href="#">Blog</a>
+                            <a class=" {{ Route::currentRouteName() == 'blog' ? 'active' : '' }}" href="#">Blog</a>
                         </li>
                         <li>
-                            <a href="#">Contact</a>
+                            <a class=" {{ Route::currentRouteName() == 'contact' ? 'active' : '' }}" href="#">Contact</a>
                         </li>
                     </ul>
                 </div>

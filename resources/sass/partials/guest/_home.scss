@@ -296,7 +296,7 @@ main.guest {
 
             .tile {
                 width: calc((100% / 4) - 30px);
-                margin: 0 30px 30px 0;
+                margin: 0 15px;
                 border: 1px solid #e5e5e5;
                 border-radius: 30px;
                 padding: 10px;
@@ -304,6 +304,16 @@ main.guest {
                 height: 470px;
                 padding: 20px 30px;
                 position: relative;
+
+                &:hover {
+                    text-decoration: none;
+                }
+
+                h2 {
+                    font-size: 18px;
+                    font-weight: 700;
+                    color: $dark;
+                }
 
                 &:hover {
                     cursor: pointer;
@@ -359,11 +369,7 @@ main.guest {
 
                 .rating {
                     span {
-                        color: #dfdfdf;
-
-                        &.full {
-                            color: $primary;
-                        }
+                        color: $primary;
                     }
                 }
 
@@ -381,17 +387,24 @@ main.guest {
                         line-height: 1.5;
                         margin-bottom: 30px;
                     }
-                    span {
-                        font-size: 20px;
-                        font-weight: 700;
 
-                        &:first-of-type {
-                            text-decoration: line-through;
-                            color: #999999;
-                        }
+                    div.price {
+                        position: absolute;
+                        left: 30px;
+                        bottom: 25px;
 
-                        &:last-of-type {
-                            color: $primary;
+                        span {
+                            font-size: 20px;
+                            font-weight: 700;
+
+                            &:first-of-type {
+                                text-decoration: line-through;
+                                color: $lightgray;
+                            }
+
+                            &:last-of-type {
+                                color: $primary;
+                            }
                         }
                     }
                 }
@@ -404,20 +417,16 @@ main.guest {
                     height: 40px;
                     background-color: $primary;
                     border-radius: 10px;
+                    background-image: url('../images/cart.svg');
+                    background-size: 60%;
+                    background-repeat: no-repeat;
+                    background-position: center;
 
                     &:hover {
-                        cursor: pointer;
-                    }
-
-                    img {
-                        height: 60%;
-                        width: 60%;
+                        background-image: url('../images/cart.png');
+                        background-color: #eeac00;
                     }
                 }
-            }
-
-            .tile:nth-of-type(4n + 4) {
-                margin-right: 0;
             }
         }
 
@@ -561,52 +570,64 @@ main.guest {
                     flex-shrink: 0;
                     margin: 0 15px;
 
-                    .avatar {
-                        position: relative;
-                        img {
-                            width: 70px;
-                            height: 70px;
-                            object-fit: cover;
-                            border-radius: 50%;
-                            flex-basis: 20%;
+                    .header {
+                        @include flex(row, between, center);
+                        margin-bottom: 15px;
+                        height: 40%;
+
+                        .avatar {
+                            position: relative;
+                            img {
+                                width: 70px;
+                                height: 70px;
+                                object-fit: cover;
+                                border-radius: 50%;
+                                flex-basis: 20%;
+                            }
+
+                            &:after {
+                                @include flex(row, center, center);
+                                content: '\f10d';
+                                font-family: 'Font Awesome 5 Free';
+                                font-size: 10px;
+                                font-weight: bold;
+                                position: absolute;
+                                bottom: 0;
+                                right: 0;
+                                color: $light;
+                                background-color: #00a149;
+                                border-radius: 50%;
+                                height: 25px;
+                                width: 25px;
+                            }
                         }
 
-                        &:after {
-                            @include flex(row, center, center);
-                            content: '\f10d';
-                            font-family: 'Font Awesome 5 Free';
-                            font-size: 10px;
-                            font-weight: bold;
-                            position: absolute;
-                            bottom: 0;
-                            right: 0;
-                            color: $light;
-                            background-color: #00a149;
-                            border-radius: 50%;
-                            height: 25px;
-                            width: 25px;
-                        }
-                    }
+                        .details {
+                            @include flex(row, space-between, center);
+                            flex-basis: 80%;
 
-                    .details {
-                        @include flex(row, space-between, center);
-                        flex-basis: 80%;
+                            > span {
+                                text-transform: uppercase;
+                                font-size: 15px;
+                                color: $dark;
+                                font-weight: 700;
+                            }
 
-                        > span {
-                            text-transform: uppercase;
-                            font-size: 15px;
-                            color: $dark;
-                            font-weight: 700;
-                        }
-
-                        .stars {
-                            color: $primary;
+                            .stars {
+                                color: $primary;
+                            }
                         }
                     }
 
                     p.description {
+                        height: 60%;
                         font-size: 15px;
                         color: #808080;
+                        text-overflow: ellipsis;
+                        overflow: hidden;
+                        display: -webkit-box;
+                        -webkit-line-clamp: 4;
+                        -webkit-box-orient: vertical;
                     }
                 }
             }

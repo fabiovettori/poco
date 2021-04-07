@@ -7,3 +7,7 @@
         <home-vue />
     </div>
 @endsection
+
+@section('script')
+    <script src=" {{ asset('js/app.js') }} " charset="utf-8"></script>
+@endsection

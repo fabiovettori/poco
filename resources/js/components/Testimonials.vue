@@ -11,7 +11,7 @@
                     <span class="fal fa-chevron-circle-left controls prev" id="prev"></span>
                     <transition-group tag="ul" class="list-unstyled mb-4" name="carousel">
                         <li class="tile" v-for="(testimonial, key) in testimonials" :key="testimonial.id" v-if="checkVisibilityTiles(key)">
-                            <div class="d-flex justify-content-between mb-4">
+                            <div class="header">
                                 <div class="avatar">
                                     <img :src="testimonial.avatar" :alt="testimonial.name">
                                 </div>

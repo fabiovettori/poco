@@ -20,7 +20,7 @@ class ReviewsSeeder extends Seeder
             $new_review->product_id = Product::all()->pluck('id')->random();
             $new_review->customer_id = Customer::all()->pluck('id')->random();
             $new_review->score = rand(1, 5);
-            $new_review->description = $faker->text(rand(50, 100));
+            $new_review->description = $faker->text(rand(400, 700));
             $new_review->save();
         }
     }

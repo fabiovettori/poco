@@ -16498,7 +16498,7 @@ main.guest section.popular-dishes div.dishes img[alt=pepper] {
 }
 main.guest section.popular-dishes div.dishes .tile {
   width: calc((100% / 4) - 30px);
-  margin: 0 30px 30px 0;
+  margin: 0 15px;
   border: 1px solid #e5e5e5;
   border-radius: 30px;
   padding: 10px;
@@ -16506,6 +16506,14 @@ main.guest section.popular-dishes div.dishes .tile {
   height: 470px;
   padding: 20px 30px;
   position: relative;
+}
+main.guest section.popular-dishes div.dishes .tile:hover {
+  text-decoration: none;
+}
+main.guest section.popular-dishes div.dishes .tile h2 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1e1d23;
 }
 main.guest section.popular-dishes div.dishes .tile:hover {
   cursor: pointer;
@@ -16552,9 +16560,6 @@ main.guest section.popular-dishes div.dishes .tile:hover .cover img {
   transform: scale(1.2);
 }
 main.guest section.popular-dishes div.dishes .tile .rating span {
-  color: #dfdfdf;
-}
-main.guest section.popular-dishes div.dishes .tile .rating span.full {
   color: #ffc222;
 }
 main.guest section.popular-dishes div.dishes .tile .details a {
@@ -16569,15 +16574,20 @@ main.guest section.popular-dishes div.dishes .tile .details p {
   line-height: 1.5;
   margin-bottom: 30px;
 }
-main.guest section.popular-dishes div.dishes .tile .details span {
+main.guest section.popular-dishes div.dishes .tile .details div.price {
+  position: absolute;
+  left: 30px;
+  bottom: 25px;
+}
+main.guest section.popular-dishes div.dishes .tile .details div.price span {
   font-size: 20px;
   font-weight: 700;
 }
-main.guest section.popular-dishes div.dishes .tile .details span:first-of-type {
+main.guest section.popular-dishes div.dishes .tile .details div.price span:first-of-type {
   text-decoration: line-through;
   color: #999999;
 }
-main.guest section.popular-dishes div.dishes .tile .details span:last-of-type {
+main.guest section.popular-dishes div.dishes .tile .details div.price span:last-of-type {
   color: #ffc222;
 }
 main.guest section.popular-dishes div.dishes .tile .cart {
@@ -16592,16 +16602,14 @@ main.guest section.popular-dishes div.dishes .tile .cart {
   height: 40px;
   background-color: #ffc222;
   border-radius: 10px;
+  background-image: url("../images/cart.svg");
+  background-size: 60%;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 main.guest section.popular-dishes div.dishes .tile .cart:hover {
-  cursor: pointer;
-}
-main.guest section.popular-dishes div.dishes .tile .cart img {
-  height: 60%;
-  width: 60%;
-}
-main.guest section.popular-dishes div.dishes .tile:nth-of-type(4n + 4) {
-  margin-right: 0;
+  background-image: url("../images/cart.png");
+  background-color: #eeac00;
 }
 main.guest section.popular-dishes a[name=shop] {
   background-color: #ffc222;
@@ -16755,10 +16763,18 @@ main.guest section.testimonials .carousel ul .tile {
   flex-shrink: 0;
   margin: 0 15px;
 }
-main.guest section.testimonials .carousel ul .tile .avatar {
+main.guest section.testimonials .carousel ul .tile .header {
+  display: flex;
+  flex-direction: row;
+  justify-content: between;
+  align-items: center;
+  margin-bottom: 15px;
+  height: 40%;
+}
+main.guest section.testimonials .carousel ul .tile .header .avatar {
   position: relative;
 }
-main.guest section.testimonials .carousel ul .tile .avatar img {
+main.guest section.testimonials .carousel ul .tile .header .avatar img {
   width: 70px;
   height: 70px;
   -o-object-fit: cover;
@@ -16766,7 +16782,7 @@ main.guest section.testimonials .carousel ul .tile .avatar img {
   border-radius: 50%;
   flex-basis: 20%;
 }
-main.guest section.testimonials .carousel ul .tile .avatar:after {
+main.guest section.testimonials .carousel ul .tile .header .avatar:after {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -16784,25 +16800,31 @@ main.guest section.testimonials .carousel ul .tile .avatar:after {
   height: 25px;
   width: 25px;
 }
-main.guest section.testimonials .carousel ul .tile .details {
+main.guest section.testimonials .carousel ul .tile .header .details {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   flex-basis: 80%;
 }
-main.guest section.testimonials .carousel ul .tile .details > span {
+main.guest section.testimonials .carousel ul .tile .header .details > span {
   text-transform: uppercase;
   font-size: 15px;
   color: #1e1d23;
   font-weight: 700;
 }
-main.guest section.testimonials .carousel ul .tile .details .stars {
+main.guest section.testimonials .carousel ul .tile .header .details .stars {
   color: #ffc222;
 }
 main.guest section.testimonials .carousel ul .tile p.description {
+  height: 60%;
   font-size: 15px;
   color: #808080;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
 }
 main.guest section.testimonials .carousel .controls {
   position: absolute;
@@ -16966,6 +16988,355 @@ main.guest section.offers div[class*=col]:last-of-type:after {
   background-image: url("../images/offers_03.png");
 }
 
+h1.pippo {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+section.product-page section.navigation-bar {
+  background-image: url("../images/products/breadcrumb.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+section.product-page section.navigation-bar div.product-breadcrumbs {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+section.product-page section.navigation-bar div.product-breadcrumbs a {
+  text-transform: capitalize;
+  font-size: 15px;
+  color: #999999;
+}
+section.product-page section.navigation-bar div.product-breadcrumbs a:hover {
+  text-decoration: none;
+  color: #ffc222;
+}
+section.product-page section.navigation-bar div.product-breadcrumbs a:after {
+  content: "\F054";
+  font-family: "Font Awesome 5 Free";
+  font-weight: bold;
+  font-size: 10px;
+  padding: 0 5px;
+}
+section.product-page section.navigation-bar div.product-breadcrumbs span {
+  text-transform: capitalize;
+  font-size: 15px;
+}
+section.product-page section.product-details {
+  padding: 50px 0;
+}
+section.product-page section.product-details .product-images .image-container {
+  height: 650px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+section.product-page section.product-details .product-images .image-container > div {
+  background-color: #f7f4ef;
+  overflow: hidden;
+  border-radius: 20px;
+  height: 100%;
+  width: 100%;
+  margin-right: 20px;
+}
+section.product-page section.product-details .product-images .image-container > div img {
+  width: 100%;
+}
+section.product-page section.product-details .info, section.product-page section.product-details .cart, section.product-page section.product-details .more-info, section.product-page section.product-details .shipping-details {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+section.product-page section.product-details .info {
+  padding: 30px 0 20px;
+}
+section.product-page section.product-details .info h1 {
+  color: #1e1d23;
+  font-size: 52px;
+  line-height: 1.2;
+  font-weight: 700;
+}
+section.product-page section.product-details .info p {
+  color: #808080;
+  font-size: 16px;
+}
+section.product-page section.product-details .info .reviews {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 10px;
+}
+section.product-page section.product-details .info .reviews .rating span {
+  font-size: 11px;
+}
+section.product-page section.product-details .info .reviews a {
+  text-transform: capitalize;
+  font-size: 14px;
+  color: #999999;
+  margin-left: 5px;
+}
+section.product-page section.product-details .info .reviews a:hover {
+  color: #ffc222;
+}
+section.product-page section.product-details .info .config {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+section.product-page section.product-details .info .config .price {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-end;
+  position: unset;
+  left: unset;
+  bottom: unset;
+  flex-basis: 30%;
+}
+section.product-page section.product-details .info .config .price span {
+  line-height: 20px;
+}
+section.product-page section.product-details .info .config .sizes {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+section.product-page section.product-details .cart {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 15px 0;
+}
+section.product-page section.product-details .cart .quantity {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  flex-basis: 20%;
+}
+section.product-page section.product-details .cart .quantity span {
+  font-weight: 700;
+}
+section.product-page section.product-details .cart .quantity .counter {
+  margin: 0 20px;
+}
+section.product-page section.product-details .cart .quantity .far {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: #1e1d23;
+  background-color: #f7f4ef;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+}
+section.product-page section.product-details .cart .quantity .far:hover {
+  cursor: pointer;
+  color: #ffc222;
+}
+section.product-page section.product-details .cart a {
+  background-color: #ffc222;
+  border-radius: 8px;
+  padding: 20px 45px;
+  color: #1e1d23;
+  font-size: 14px;
+  font-weight: 700;
+  margin-right: 30px;
+  transition: all 0.3s ease;
+  z-index: 3;
+  margin: 0 20px;
+  padding: 15px 45px;
+  text-align: center;
+  text-transform: uppercase;
+  flex-basis: 70%;
+}
+section.product-page section.product-details .cart a:hover {
+  background-color: #ffc222;
+  text-decoration: none;
+  color: #fff;
+}
+section.product-page section.product-details .cart span.fa-heart {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-basis: 1;
+  font-size: 14px;
+  background-color: #f7f4ef;
+  border-radius: 8px;
+  padding: 19px;
+  color: #808080;
+}
+section.product-page section.product-details .cart span.fa-heart:hover {
+  cursor: pointer;
+  color: #ffc222;
+}
+section.product-page section.product-details .more-info {
+  padding: 30px 0;
+  color: #808080;
+  font-size: 13px;
+}
+section.product-page section.product-details .more-info .category {
+  margin-bottom: 5px;
+}
+section.product-page section.product-details .more-info .category a {
+  text-transform: capitalize;
+  font-weight: 700;
+  color: #808080;
+}
+section.product-page section.product-details .more-info .category a:hover {
+  color: #ffc222;
+}
+section.product-page section.product-details .more-info .social {
+  margin-bottom: 0;
+}
+section.product-page section.product-details .more-info .social a {
+  color: #999999;
+  padding: 0 5px;
+}
+section.product-page section.product-details .more-info .social a:hover {
+  color: #ffc222;
+}
+section.product-page section.product-details ul.shipping-details {
+  padding: 30px 0 30px 30px;
+}
+section.product-page section.product-details ul.shipping-details li {
+  font-size: 15px;
+  line-height: 1.8;
+  color: #999999;
+}
+section.product-page section.product-details .trust-badges {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 30px 0;
+}
+section.product-page section.product-details .trust-badges h5 {
+  font-size: 15px;
+  font-weight: 700;
+  margin-right: 30px;
+}
+section.product-page section.product-nutrition-reviews {
+  margin-bottom: 80px;
+}
+section.product-page section.product-nutrition-reviews .choices {
+  text-align: center;
+  margin-bottom: 50px;
+}
+section.product-page section.product-nutrition-reviews .choices button {
+  background-color: transparent;
+  border-radius: 8px;
+  padding: 20px 45px;
+  color: #1e1d23;
+  font-size: 14px;
+  font-weight: 700;
+  margin-right: 30px;
+  transition: all 0.3s ease;
+  z-index: 3;
+  text-transform: uppercase;
+  font-size: 18px;
+  border: none;
+}
+section.product-page section.product-nutrition-reviews .choices button:hover {
+  background-color: transparent;
+  text-decoration: none;
+  color: #1e1d23;
+}
+section.product-page section.product-nutrition-reviews .choices button.active {
+  background-color: #ffc222;
+  border-radius: 8px;
+  padding: 20px 45px;
+  color: #1e1d23;
+  font-size: 14px;
+  font-weight: 700;
+  margin-right: 30px;
+  transition: all 0.3s ease;
+  z-index: 3;
+  font-size: 18px;
+}
+section.product-page section.product-nutrition-reviews .choices button.active:hover {
+  background-color: #ffc222;
+  text-decoration: none;
+  color: #1e1d23;
+}
+section.product-page section.product-nutrition-reviews .nutrition .description {
+  margin-bottom: 30px;
+}
+section.product-page section.product-nutrition-reviews .nutrition .description p {
+  color: #808080;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+section.product-page section.product-nutrition-reviews .nutrition .description p .title {
+  font-weight: 700;
+}
+section.product-page section.product-nutrition-reviews .nutrition .nutrition, section.product-page section.product-nutrition-reviews .nutrition .allergles {
+  display: flex;
+}
+section.product-page section.product-nutrition-reviews .nutrition .nutrition > div, section.product-page section.product-nutrition-reviews .nutrition .allergles > div {
+  width: calc(100% / 7);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding-bottom: 30px;
+}
+section.product-page section.product-nutrition-reviews .nutrition .nutrition .title, section.product-page section.product-nutrition-reviews .nutrition .allergles .title {
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+}
+section.product-page section.product-nutrition-reviews .nutrition .nutrition .title h3, section.product-page section.product-nutrition-reviews .nutrition .allergles .title h3 {
+  text-transform: capitalize;
+  font-size: 20px;
+  font-weight: 700;
+}
+section.product-page section.product-nutrition-reviews .nutrition .nutrition .content, section.product-page section.product-nutrition-reviews .nutrition .allergles .content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+section.product-page section.product-nutrition-reviews .nutrition .nutrition .content h3, section.product-page section.product-nutrition-reviews .nutrition .allergles .content h3 {
+  text-align: center;
+  font-size: 32px;
+  font-weight: 700;
+}
+section.product-page section.product-nutrition-reviews .nutrition .nutrition .content span, section.product-page section.product-nutrition-reviews .nutrition .allergles .content span {
+  text-align: center;
+  font-size: 15px;
+}
+section.product-page section.product-nutrition-reviews .nutrition .allergles {
+  margin-bottom: 30px;
+}
+section.product-page section.product-nutrition-reviews .nutrition .allergles .title, section.product-page section.product-nutrition-reviews .nutrition .allergles .content {
+  padding-top: 15px;
+  padding-bottom: 0;
+}
+section.product-page section.product-nutrition-reviews .nutrition .allergles .content span {
+  text-transform: capitalize;
+  color: #808080;
+}
+section.product-page section.product-nutrition-reviews .nutrition .allergles > div {
+  border-bottom: none;
+}
+section.product-page section.related {
+  margin-bottom: 100px;
+}
+section.product-page section.related .title {
+  margin-bottom: 42px;
+}
+section.product-page section.related .title h2 {
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 32px;
+  font-weight: 700;
+}
+
 header.guest > section:first-of-type {
   background-color: #1e1d23;
   padding: 5px 0;
@@ -16983,14 +17354,27 @@ header.guest > nav {
   padding: 30px 0;
 }
 header.guest > nav .links {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
   padding-right: 30px;
 }
-header.guest > nav .links img {
+header.guest > nav .links .logo {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  flex-basis: 1;
+}
+header.guest > nav .links .logo img {
   max-height: 40px;
-  flex-grow: 0.2;
+  width: 120px;
+  margin-right: 50px;
 }
 header.guest > nav .links ul {
-  flex-grow: 0.8;
+  flex-grow: 1;
+  flex-basis: 0.9;
 }
 header.guest > nav .links ul li a {
   color: #1e1d23;

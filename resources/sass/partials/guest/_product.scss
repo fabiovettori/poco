@@ -1,0 +1,339 @@
+h1.pippo {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+section.product-page {
+    section.navigation-bar {
+        background-image: url('../images/products/breadcrumb.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+
+        div.product-breadcrumbs {
+            @include flex(row, flex-start, center);
+
+            a {
+                text-transform: capitalize;
+                font-size: 15px;
+                color: $lightgray;
+
+                &:hover {
+                    text-decoration: none;
+                    color: $primary;
+                }
+
+                &:after {
+                    content: '\f054';
+                    font-family: 'Font Awesome 5 Free';
+                    font-weight: bold;
+                    font-size: 10px;
+                    padding: 0 5px;
+                }
+            }
+
+            span {
+                text-transform: capitalize;
+                font-size: 15px;
+            }
+        }
+    }
+
+    section.product-details {
+        padding: 50px 0;
+
+        .product-images {
+            .image-container {
+                height: 650px;
+                width: 100%;
+                margin-bottom: 20px;
+
+                > div {
+                    background-color: #f7f4ef;
+                    overflow: hidden;
+                    border-radius: 20px;
+                    height: 100%;
+                    width: 100%;
+                    margin-right: 20px;
+
+                    img {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+
+        .info, .cart, .more-info, .shipping-details {
+            border-bottom: 1px solid rgba(0, 0, 0, .1);
+        }
+
+        .info {
+            padding: 30px 0 20px;
+
+            h1 {
+                color: $dark;
+                font-size: 52px;
+                line-height: 1.2;
+                font-weight: 700;
+            }
+
+            p {
+                color: $darkgray;
+                font-size: 16px;
+            }
+
+            .reviews {
+                @include flex(row, flex-start, center);
+                margin-bottom: 10px;
+
+                .rating {
+                    span {
+                        font-size: 11px;
+                    }
+                }
+                a {
+                    text-transform: capitalize;
+                    font-size: 14px;
+                    color: $lightgray;
+                    margin-left: 5px;
+
+                    &:hover {
+                        color: $primary;
+                    }
+                }
+            }
+
+            .config {
+                @include flex(row, flex-start, center);
+
+                .price {
+                    @include flex(row, flex-start, flex-end);
+                    position: unset;
+                    left: unset;
+                    bottom: unset;
+                    flex-basis: 30%;
+
+                    span {
+                        line-height: 20px;
+                    }
+                }
+                .sizes {
+                    @include flex(row, flex-start, center);
+                }
+            }
+        }
+
+        .cart {
+            @include flex(row, center, center);
+            padding: 15px 0;
+
+            .quantity {
+                @include flex(row, flex-start, center);
+                flex-basis: 20%;
+
+                span {
+                    font-weight: 700;
+                }
+
+                .counter {
+                    margin: 0 20px;
+                }
+
+                .far {
+                    @include flex(row, center, center);
+                    font-size: 12px;
+                    font-weight: 700;
+                    color: $dark;
+                    background-color: #f7f4ef;
+                    width: 35px;
+                    height: 35px;
+                    border-radius: 50%;
+
+                    &:hover {
+                        cursor: pointer;
+                        color: $primary;
+                    }
+                }
+            }
+
+            a {
+                @include button($primary, $dark, $primary, $light);
+                margin: 0 20px;
+                padding: 15px 45px;
+                text-align: center;
+                text-transform: uppercase;
+                flex-basis: 70%;
+            }
+
+            span.fa-heart {
+                @include flex(row, center, center);
+                flex-basis: 1;
+                font-size: 14px;
+                background-color: #f7f4ef;
+                border-radius: 8px;
+                padding: 19px;
+                color: $darkgray;
+
+                &:hover {
+                    cursor: pointer;
+                    color: $primary;
+                }
+            }
+        }
+
+        .more-info {
+            padding: 30px 0;
+            color: $darkgray;
+            font-size: 13px;
+
+            .category {
+                margin-bottom: 5px;
+                a {
+                    text-transform: capitalize;
+                    font-weight: 700;
+                    color: $darkgray;
+
+                    &:hover {
+                        color: $primary;
+                    }
+                }
+            }
+            .social {
+                margin-bottom: 0;
+                a {
+                    color: $lightgray;
+                    padding: 0 5px;
+
+                    &:hover {
+                        color: $primary;
+                    }
+                }
+            }
+        }
+
+        ul.shipping-details {
+            padding: 30px 0 30px 30px;
+
+            li {
+                font-size: 15px;
+                line-height: 1.8;
+                color: $lightgray;
+            }
+        }
+
+        .trust-badges {
+            @include flex(row, flex-start, center);
+            h5 {
+                font-size: 15px;
+                font-weight: 700;
+                margin-right: 30px;
+            }
+            padding: 30px 0;
+        }
+    }
+
+    section.product-nutrition-reviews {
+        margin-bottom: 80px;
+
+        .choices {
+            text-align: center;
+            margin-bottom: 50px;
+
+            button {
+                @include button(transparent, $dark, transparent, $dark);
+                text-transform: uppercase;
+                font-size: 18px;
+                border: none;
+
+                &.active {
+                    @include button($primary, $dark, $primary, $dark);
+                    font-size: 18px;
+                }
+            }
+        }
+
+        .nutrition {
+            .description {
+                margin-bottom: 30px;
+
+                p {
+                    color: $darkgray;
+                    font-size: 16px;
+                    margin-bottom: 20px;
+
+                    .title {
+                        font-weight: 700;
+                    }
+                }
+            }
+
+            .nutrition, .allergles {
+                display: flex;
+
+                > div {
+                    width: calc(100% / 7);
+                    border-bottom: 1px solid rgba(0, 0, 0, .1);
+                    padding-bottom: 30px;
+                }
+                .title {
+                    border-right: 1px solid rgba(0, 0, 0, .1);
+
+                    h3 {
+                        text-transform: capitalize;
+                        font-size: 20px;
+                        font-weight: 700;
+                    }
+                }
+                .content {
+                    @include flex(column, center, center);
+                    h3 {
+                        text-align: center;
+                        font-size: 32px;
+                        font-weight: 700;
+                    }
+
+                    span {
+                        text-align: center;
+                        font-size: 15px;
+                    }
+                }
+            }
+
+            .allergles {
+                margin-bottom: 30px;
+
+                .title, .content {
+                    padding-top: 15px;
+                    padding-bottom: 0;
+                }
+
+                .content {
+                    span {
+                        text-transform: capitalize;
+                        color: $darkgray;
+                    }
+                }
+
+                > div {
+                    border-bottom: none;
+                }
+            }
+        }
+    }
+
+    section.related {
+        margin-bottom: 100px;
+
+        .title {
+            margin-bottom: 42px;
+
+            h2 {
+                text-transform: uppercase;
+                text-align: center;
+                font-size: 32px;
+                font-weight: 700;
+            }
+        }
+    }
+}
