@@ -1,5 +1,6 @@
 <template>
     <div>
+        <heady :cartVisibility="cart" @shoppingCart="cartStatus"/>
         <section class="navigation-bar">
             <div class="wrapper">
                 <div class="container-fluid">
@@ -167,25 +168,37 @@
                 </div>
             </div>
         </section>
+
+        <cart :cartVisibility="cart" @shoppingCart="cartStatus"/>
+        <reminder :product="product"/>
+        <footy />
     </div>
 </template>
 
 <script>
-    import Rating from './components/Rating.vue';
-    import Pricing from './components/Pricing.vue';
-    import Dishes from './components/Dishes.vue';
-    import Switcher from './components/Switcher.vue';
-    import Reviews from './components/Reviews.vue';
+    import Heady from './../components/Header';
+    import Footy from './../components/Footer';
+    import Rating from './../components/Rating.vue';
+    import Pricing from './../components/Pricing.vue';
+    import Dishes from './../components/Dishes.vue';
+    import Switcher from './../components/Switcher.vue';
+    import Reviews from './../components/Reviews.vue';
+    import Reminder from './../components/Reminder.vue';
+    import Cart from './../components/Cart.vue';
 
     export default {
         name: 'product-vue',
         props: ['product_details', 'related_products', 'product_nutrition'],
         components: {
+            Heady,
+            Footy,
             Rating,
             Pricing,
             Dishes,
             Switcher,
             Reviews,
+            Reminder,
+            Cart
         },
         beforeMount(){
             console.log('Product Vue');
@@ -196,6 +209,7 @@
         },
         data(){
             return {
+                cart: false,
                 product: {},
                 related: [],
                 nutrients: [],
@@ -214,6 +228,9 @@
             },
             testButton(){
                 this.nutritionVisibility =! this.nutritionVisibility;
+            },
+            cartStatus(status){
+                this.cart = status;
             },
         }
     }

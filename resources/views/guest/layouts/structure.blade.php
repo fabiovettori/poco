@@ -12,19 +12,12 @@
         <link rel="stylesheet" href=" {{ asset('css/app.css') }} ">
     </head>
     <body>
-        <header class="guest">
-            @include('guest.partials.header')
-        </header>
 
-        <main class="guest">
+        <div id="app">
             @yield('content')
-        </main>
-
-        <footer class="guest">
-            @include('guest.partials.footer')
-        </footer>
+        </div>
 
         @routes
-        @yield('script')
+        <script src=" {{ asset('js/app.js') }} " charset="utf-8"></script>
     </body>
 </html>

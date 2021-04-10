@@ -40,6 +40,11 @@
     .rating {
         span {
             color: $primary;
+            margin-left: 2px;
+
+            &.fal {
+                color: rgba($lightgray, .5);
+            }
         }
     }
 </style>
