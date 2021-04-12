@@ -69,6 +69,7 @@
                             <span class="fas fa-user"></span>
                             <span class="fas fa-heart"></span>
                             <img src=" /images/cart.svg " alt="shopping cart" @click="cart()">
+                            <span class="counter"> {{ cartCounter }} </span>
                         </div>
                     </div>
                 </div>
@@ -82,10 +83,11 @@ export default {
     name: 'Heady',
     props: {
         cartVisibility: Boolean,
+        cartCounter: Number,
     },
     data(){
         return {
-            
+
         }
     },
     methods: {
@@ -177,6 +179,8 @@ export default {
 
         .icons {
             @include flex(row, space-between, center);
+            position: relative;
+
             span, img {
                 display: block;
                 width: 38px;
@@ -196,6 +200,20 @@ export default {
                 font-size: 14px;
             } img {
                 padding: 8px
+            }
+
+            .counter {
+                @include flex(row, center, center);
+                border: 1px solid $light;
+                position: absolute;
+                font-size: 10px;
+                right: 8px;
+                top: 8px;
+                width: 18px;
+                height: 18px;
+                border-radius: 50%;
+                background-color: $primary;
+                color: $dark;
             }
         }
     }

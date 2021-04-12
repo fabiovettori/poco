@@ -1,6 +1,6 @@
 <template>
     <div>
-        <heady :cartVisibility="cart" @shoppingCart="cartStatus"/>
+        <heady :cartVisibility="cart" @shoppingCart="cartStatus" :cartCounter="cartCounter"/>
         <section class="navigation-bar">
             <div class="wrapper">
                 <div class="container-fluid">
@@ -43,7 +43,7 @@
                                     </a>
                                 </div>
                                 <div>
-                                    <pricing :productPricing="product" :sizes="true"/>
+                                    <pricing :productPricing="product" :sizes="true" :activeConfig="activeConfig" @config="choosenConfig"/>
                                 </div>
                             </div>
 
@@ -53,10 +53,10 @@
                                     <span class="counter"> {{ cartQuantity }} </span>
                                     <span class="far fa-plus" @click="plus"></span>
                                 </div>
-                                <a href="#">
+                                <button @click="addToCart()">
                                     <span class="far fa-shopping-basket"></span>
                                     add to cart
-                                </a>
+                                </button>
                                 <span class="fas fa-heart"></span>
                             </div>
 
@@ -108,8 +108,8 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12 choices">
-                        <button :class="nutritionVisibility == true ? 'active' : ''" @click="testButton()">description</button>
-                        <button :class="nutritionVisibility == false ? 'active' : ''" @click="testButton()">reviews ({{ product.reviews.length }})</button>
+                        <button :class="nutritionVisibility == true ? 'active' : ''" @click="switchReviewsNutrition()">description</button>
+                        <button :class="nutritionVisibility == false ? 'active' : ''" @click="switchReviewsNutrition()">reviews ({{ product.reviews.length }})</button>
                     </div>
                 </div>
             </div>
@@ -169,8 +169,8 @@
             </div>
         </section>
 
-        <cart :cartVisibility="cart" @shoppingCart="cartStatus"/>
-        <reminder :product="product"/>
+        <cart :cartVisibility="cart" @shoppingCart="cartStatus" :cartItems="cartItems" @removedItem="removedItem" :totalCart="totalCart"/>
+        <reminder :product="product" :activeConfig="activeConfig" @cart="cartReminder"/>
         <footy />
     </div>
 </template>
@@ -207,13 +207,20 @@
             this.nutrients = this.product_nutrition.split(',');
             console.log(this.product);
         },
+        mounted(){
+            this.regenCart();
+        },
         data(){
             return {
                 cart: false,
+                cartItems: [],
+                cartCounter: 0,
+                totalCart: 0,
                 product: {},
                 related: [],
                 nutrients: [],
                 cartQuantity: 1,
+                activeConfig: 0,
                 nutritionVisibility: true,
             }
         },
@@ -226,12 +233,59 @@
                     this.cartQuantity -= 1;
                 }
             },
-            testButton(){
+            switchReviewsNutrition(){
                 this.nutritionVisibility =! this.nutritionVisibility;
             },
             cartStatus(status){
                 this.cart = status;
             },
+            choosenConfig(index) {
+                this.activeConfig = index;
+            },
+            addToCart(){
+                let newCart = {
+                    'id': this.product.id,
+                    'name': this.product.name,
+                    'slug': this.product.slug,
+                    'price': this.product.configs[this.activeConfig].price,
+                    'discount': this.product.configs[this.activeConfig].discount,
+                    'cover': this.product.images[0].image,
+                    'quantity': this.cartQuantity,
+                };
+                localStorage.setItem(this.product.id, JSON.stringify(newCart));
+                this.regenCart();
+                this.cart = true;
+            },
+            removedItem(item_id){
+                localStorage.removeItem(item_id);
+                this.regenCart();
+            },
+            regenCart(){
+                let items = [];
+                for (var i = 0; i < localStorage.length; i++) {
+                    let indexItem = localStorage.key(i);
+                    items.push(JSON.parse(localStorage.getItem(indexItem)));
+                };
+                this.cartItems = items;
+                this.total();
+            },
+            cartReminder(){
+                if (this.cartQuantity >= 1) {
+                    this.cartQuantity++;
+                    this.addToCart();
+                }
+            },
+            total(){
+                let total = 0;
+                let counter = 0;
+                this.cartItems.forEach((item, i) => {
+                    let discount = (item.price * item.discount) / 100;
+                    total += (item.price - discount) * item.quantity;
+                    counter += item.quantity;
+                });
+                this.totalCart = Math.round(total * 100) / 100;
+                this.cartCounter = counter;
+            }
         }
     }
 </script>

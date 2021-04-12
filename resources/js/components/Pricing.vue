@@ -1,12 +1,12 @@
 <template>
     <div class="config">
         <div class="price">
-            <span class="mr-2"> ${{ beforePrice(configs[activeConfig].price, configs[activeConfig].discount) }} </span>
-            <span> ${{ configs[activeConfig].price }} </span>
+            <span class="mr-2"> ${{ configs[activeConfig].price }} </span>
+            <span> ${{ discountPrice(configs[activeConfig].price, configs[activeConfig].discount) }} </span>
         </div>
         <div class="sizes" v-show="sizes">
             <span>sizes:</span>
-            <span v-for="(config, index) in configs" @click="changeConfig(index)"> {{ config.size }} </span>
+            <span class="types" :class="index == activeConfig ? 'active' : ''" v-for="(config, index) in configs" @click="changeConfig(index)"> {{ config.size }} </span>
         </div>
     </div>
 </template>
@@ -17,15 +17,15 @@
         props: {
             productPricing: Object,
             sizes: Boolean,
+            activeConfig: Number,
         },
         beforeMount(){
-            this.beforePrice();
+            this.discountPrice();
             this.productConfigs();
         },
         data(){
             return {
                 configs: [],
-                activeConfig: 0,
             }
         },
         methods: {
@@ -35,11 +35,12 @@
                 }
             },
             changeConfig(index){
-                this.activeConfig = index;
+                this.$emit('config', index);
             },
-            beforePrice(actualPice, discount){
-                let beforePrice = actualPice / ((100 - discount)/100);
-                return Math.round(beforePrice * 100) / 100;
+            discountPrice(actualPice, discount){
+                let discountPrice = (actualPice * discount) / 100;
+                let newPrice = actualPice - discountPrice;
+                return Math.round(newPrice * 100) / 100;
             },
         }
     }
@@ -79,13 +80,17 @@
                 color: $lightgray;
             }
 
-            span:last-of-type {
+            span.types {
                 @include flex(row, center, center);
                 font-size: 15px;
                 height: 40px;
                 width: 40px;
                 border-radius: 50%;
-                background-color: $primary;
+                margin-right: 5px;
+
+                &.active {
+                    background-color: $primary;
+                }
 
                 &:hover {
                     cursor: pointer;

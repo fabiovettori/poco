@@ -13,12 +13,12 @@
                                     </span>
                                 </div>
                                 <div>
-                                    <pricing :productPricing="product" :sizes="false"/>
+                                    <pricing :productPricing="product" :sizes="false" :activeConfig="activeConfig"/>
                                     <rating :productRating="product"/>
                                 </div>
                             </div>
                         </div>
-                        <button>
+                        <button @click="addToCart()">
                             add to cart
                         </button>
                     </div>
@@ -35,7 +35,8 @@ import Rating from './Rating';
 export default {
     name: 'Reminder',
     props: {
-        product: Object
+        product: Object,
+        activeConfig: Number,
     },
     components: {
         Pricing,
@@ -65,6 +66,9 @@ export default {
                     self.active = false;
                 }
             })
+        },
+        addToCart(){
+            this.$emit('cart');
         }
     }
 }

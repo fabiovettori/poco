@@ -20,7 +20,7 @@ class CreateConfigsTable extends Migration
             $table->string('size', 30);
             $table->string('sku', 20);
             $table->float('discount', 3, 1);
-            $table->integer('visibility');
+            $table->boolean('visibility');
             $table->timestamps();
         });
     }

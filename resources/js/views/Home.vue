@@ -1,6 +1,6 @@
 <template>
     <div>
-        <heady />
+        <heady :cartVisibility="cart" @shoppingCart="cartStatus" :cartCounter="cartCounter"/>
         <main class="guest">
             <section class="hero">
                 <div class="wrapper">
@@ -146,6 +146,7 @@
                 </div>
             </section>
         </main>
+        <cart :cartVisibility="cart" @shoppingCart="cartStatus" :cartItems="cartItems" @removedItem="removedItem" :totalCart="totalCart"/>
         <footy />
     </div>
 </template>
@@ -156,6 +157,7 @@
     import Categories from './../components/Categories';
     import Products from './../components/Products';
     import Testimonials from './../components/Testimonials';
+    import Cart from './../components/Cart.vue';
 
     export default {
         name: 'home-vue',
@@ -165,17 +167,48 @@
             Products,
             Categories,
             Testimonials,
+            Cart
         },
         mounted(){
             console.log('Home mounted');
+            this.regenCart();
         },
         data(){
             return {
-
+                cart: false,
+                cartItems: [],
+                totalCart: 0,
+                cartCounter: 0,
             }
         },
         methods: {
-
+            cartStatus(status){
+                this.cart = status;
+            },
+            removedItem(item_id){
+                localStorage.removeItem(item_id);
+                this.regenCart();
+            },
+            regenCart(){
+                let items = [];
+                for (var i = 0; i < localStorage.length; i++) {
+                    let indexItem = localStorage.key(i);
+                    items.push(JSON.parse(localStorage.getItem(indexItem)));
+                };
+                this.cartItems = items;
+                this.total();
+            },
+            total(){
+                let total = 0;
+                let counter = 0;
+                this.cartItems.forEach((item, i) => {
+                    let discount = (item.price * item.discount) / 100;
+                    total += (item.price - discount) * item.quantity;
+                    counter += item.quantity;
+                });
+                this.totalCart = Math.round(total * 100) / 100;
+                this.cartCounter = counter;
+            }
         }
     }
 </script>

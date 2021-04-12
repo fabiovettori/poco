@@ -11,7 +11,7 @@
                     <img :src="'/' + relatedProducts[prevProduct].images[0].image " :alt=" relatedProducts[nextProduct].name ">
                     <div>
                         <h2> {{ relatedProducts[prevProduct].name }} </h2>
-                        <pricing :productPricing="relatedProducts[prevProduct]" :sizes="false"/>
+                        <pricing :productPricing="relatedProducts[prevProduct]" :sizes="false" :activeConfig="0"/>
                     </div>
                 </div>
             </transition>
@@ -27,7 +27,7 @@
                     <img :src="'/' + relatedProducts[nextProduct].images[0].image " :alt=" relatedProducts[nextProduct].name ">
                     <div>
                         <h2> {{ relatedProducts[nextProduct].name }} </h2>
-                        <pricing :productPricing="relatedProducts[nextProduct]" :sizes="false"/>
+                        <pricing :productPricing="relatedProducts[nextProduct]" :sizes="false" :activeConfig="0"/>
                     </div>
                 </div>
             </transition>
@@ -95,10 +95,10 @@ export default {
 
         a {
             display: block;
-            padding: 20px 0;
+            padding: 30px 0;
 
             &:first-of-type {
-                margin-right: 10px;
+                margin-right: 20px;
             }
 
             > span {

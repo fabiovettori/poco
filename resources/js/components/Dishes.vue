@@ -29,7 +29,7 @@
                                 <span class="mr-2"> ${{ beforePrice(product.configs[0].price, product.configs[0].discount) }} </span>
                                 <span> ${{ product.configs[0].price }} </span>
                             </div> -->
-                            <pricing :productPricing="product" :sizes="false"/>
+                            <pricing :productPricing="product" :sizes="false" :activeConfig="0"/>
                         </div>
                         <div class="cart">
                             <!-- cart image -->

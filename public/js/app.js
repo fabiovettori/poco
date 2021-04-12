@@ -1970,10 +1970,42 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Cart',
   props: {
-    cartVisibility: Boolean
+    cartVisibility: Boolean,
+    cartItems: Array,
+    totalCart: Number
   },
   data: function data() {
     return {};
@@ -1981,6 +2013,14 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     cart: function cart() {
       this.$emit('shoppingCart', !this.cartVisibility);
+    },
+    deleteItem: function deleteItem(item_id) {
+      this.$emit('removedItem', item_id);
+    },
+    discountPrice: function discountPrice(actualPice, discount) {
+      var discountPrice = actualPice * discount / 100;
+      var newPrice = actualPice - discountPrice;
+      return Math.round(newPrice * 100) / 100;
     }
   }
 });
@@ -2338,10 +2378,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Heady',
   props: {
-    cartVisibility: Boolean
+    cartVisibility: Boolean,
+    cartCounter: Number
   },
   data: function data() {
     return {};
@@ -2381,16 +2423,16 @@ __webpack_require__.r(__webpack_exports__);
   name: 'Pricing',
   props: {
     productPricing: Object,
-    sizes: Boolean
+    sizes: Boolean,
+    activeConfig: Number
   },
   beforeMount: function beforeMount() {
-    this.beforePrice();
+    this.discountPrice();
     this.productConfigs();
   },
   data: function data() {
     return {
-      configs: [],
-      activeConfig: 0
+      configs: []
     };
   },
   methods: {
@@ -2400,11 +2442,12 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     changeConfig: function changeConfig(index) {
-      this.activeConfig = index;
+      this.$emit('config', index);
     },
-    beforePrice: function beforePrice(actualPice, discount) {
-      var beforePrice = actualPice / ((100 - discount) / 100);
-      return Math.round(beforePrice * 100) / 100;
+    discountPrice: function discountPrice(actualPice, discount) {
+      var discountPrice = actualPice * discount / 100;
+      var newPrice = actualPice - discountPrice;
+      return Math.round(newPrice * 100) / 100;
     }
   }
 });
@@ -2625,7 +2668,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Reminder',
   props: {
-    product: Object
+    product: Object,
+    activeConfig: Number
   },
   components: {
     Pricing: _Pricing__WEBPACK_IMPORTED_MODULE_0__["default"],
@@ -2653,6 +2697,9 @@ __webpack_require__.r(__webpack_exports__);
           self.active = false;
         }
       });
+    },
+    addToCart: function addToCart() {
+      this.$emit('cart');
     }
   }
 });
@@ -2922,6 +2969,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Categories__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../components/Categories */ "./resources/js/components/Categories.vue");
 /* harmony import */ var _components_Products__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../components/Products */ "./resources/js/components/Products.vue");
 /* harmony import */ var _components_Testimonials__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../components/Testimonials */ "./resources/js/components/Testimonials.vue");
+/* harmony import */ var _components_Cart_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../components/Cart.vue */ "./resources/js/components/Cart.vue");
 //
 //
 //
@@ -3074,6 +3122,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+
 
 
 
@@ -3086,15 +3136,53 @@ __webpack_require__.r(__webpack_exports__);
     Footy: _components_Footer__WEBPACK_IMPORTED_MODULE_1__["default"],
     Products: _components_Products__WEBPACK_IMPORTED_MODULE_3__["default"],
     Categories: _components_Categories__WEBPACK_IMPORTED_MODULE_2__["default"],
-    Testimonials: _components_Testimonials__WEBPACK_IMPORTED_MODULE_4__["default"]
+    Testimonials: _components_Testimonials__WEBPACK_IMPORTED_MODULE_4__["default"],
+    Cart: _components_Cart_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
   },
   mounted: function mounted() {
     console.log('Home mounted');
+    this.regenCart();
   },
   data: function data() {
-    return {};
+    return {
+      cart: false,
+      cartItems: [],
+      totalCart: 0,
+      cartCounter: 0
+    };
   },
-  methods: {}
+  methods: {
+    cartStatus: function cartStatus(status) {
+      this.cart = status;
+    },
+    removedItem: function removedItem(item_id) {
+      localStorage.removeItem(item_id);
+      this.regenCart();
+    },
+    regenCart: function regenCart() {
+      var items = [];
+
+      for (var i = 0; i < localStorage.length; i++) {
+        var indexItem = localStorage.key(i);
+        items.push(JSON.parse(localStorage.getItem(indexItem)));
+      }
+
+      ;
+      this.cartItems = items;
+      this.total();
+    },
+    total: function total() {
+      var total = 0;
+      var counter = 0;
+      this.cartItems.forEach(function (item, i) {
+        var discount = item.price * item.discount / 100;
+        total += (item.price - discount) * item.quantity;
+        counter += item.quantity;
+      });
+      this.totalCart = Math.round(total * 100) / 100;
+      this.cartCounter = counter;
+    }
+  }
 });
 
 /***/ }),
@@ -3324,13 +3412,20 @@ __webpack_require__.r(__webpack_exports__);
     this.nutrients = this.product_nutrition.split(',');
     console.log(this.product);
   },
+  mounted: function mounted() {
+    this.regenCart();
+  },
   data: function data() {
     return {
       cart: false,
+      cartItems: [],
+      cartCounter: 0,
+      totalCart: 0,
       product: {},
       related: [],
       nutrients: [],
       cartQuantity: 1,
+      activeConfig: 0,
       nutritionVisibility: true
     };
   },
@@ -3343,11 +3438,61 @@ __webpack_require__.r(__webpack_exports__);
         this.cartQuantity -= 1;
       }
     },
-    testButton: function testButton() {
+    switchReviewsNutrition: function switchReviewsNutrition() {
       this.nutritionVisibility = !this.nutritionVisibility;
     },
     cartStatus: function cartStatus(status) {
       this.cart = status;
+    },
+    choosenConfig: function choosenConfig(index) {
+      this.activeConfig = index;
+    },
+    addToCart: function addToCart() {
+      var newCart = {
+        'id': this.product.id,
+        'name': this.product.name,
+        'slug': this.product.slug,
+        'price': this.product.configs[this.activeConfig].price,
+        'discount': this.product.configs[this.activeConfig].discount,
+        'cover': this.product.images[0].image,
+        'quantity': this.cartQuantity
+      };
+      localStorage.setItem(this.product.id, JSON.stringify(newCart));
+      this.regenCart();
+      this.cart = true;
+    },
+    removedItem: function removedItem(item_id) {
+      localStorage.removeItem(item_id);
+      this.regenCart();
+    },
+    regenCart: function regenCart() {
+      var items = [];
+
+      for (var i = 0; i < localStorage.length; i++) {
+        var indexItem = localStorage.key(i);
+        items.push(JSON.parse(localStorage.getItem(indexItem)));
+      }
+
+      ;
+      this.cartItems = items;
+      this.total();
+    },
+    cartReminder: function cartReminder() {
+      if (this.cartQuantity >= 1) {
+        this.cartQuantity++;
+        this.addToCart();
+      }
+    },
+    total: function total() {
+      var total = 0;
+      var counter = 0;
+      this.cartItems.forEach(function (item, i) {
+        var discount = item.price * item.discount / 100;
+        total += (item.price - discount) * item.quantity;
+        counter += item.quantity;
+      });
+      this.totalCart = Math.round(total * 100) / 100;
+      this.cartCounter = counter;
     }
   }
 });
@@ -7808,7 +7953,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".cart[data-v-b7f93bea] {\n  background-color: #fff;\n  position: fixed;\n  z-index: 5;\n  top: 0;\n  right: 0;\n  height: 100vh;\n  width: 350px;\n  padding: 0 15px 15px;\n  transition: all 0.5s ease;\n}\n.cart.hidden[data-v-b7f93bea] {\n  right: -350px;\n}\n.cart .title[data-v-b7f93bea] {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  align-items: center;\n  padding: 25px 0;\n  border-bottom: 1px solid rgba(0, 0, 0, 0.1);\n}\n.cart .title h3[data-v-b7f93bea], .cart .title span[data-v-b7f93bea] {\n  text-transform: uppercase;\n  font-weight: 700;\n  color: #1e1d23;\n}\n.cart .title h3[data-v-b7f93bea] {\n  font-size: 20px;\n}\n.cart .title span[data-v-b7f93bea] {\n  font-size: 13px;\n}\n.cart .title .closer[data-v-b7f93bea] {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  align-items: center;\n  cursor: pointer;\n}\n.cart .title .closer .close-cart[data-v-b7f93bea] {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n  position: relative;\n  width: 15px;\n}\n.cart .title .closer .close-cart span[data-v-b7f93bea] {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  background-color: #1e1d23;\n  display: block;\n  height: 2px;\n  width: 10px;\n  transition: all 0.3s ease;\n}\n.cart .title .closer .close-cart span[data-v-b7f93bea]:first-of-type {\n  transform: translate(-50%, -50%) rotate(45deg);\n}\n.cart .title .closer .close-cart span[data-v-b7f93bea]:last-of-type {\n  transform: translate(-50%, -50%) rotate(-45deg);\n}\n.cart .title .closer:hover .close-cart > span[data-v-b7f93bea]:first-of-type {\n  transform: translate(-50%, -50%) rotate(0deg);\n}\n.cart .title .closer:hover .close-cart > span[data-v-b7f93bea]:last-of-type {\n  transform: translate(-50%, -50%) rotate(0deg);\n}", ""]);
+exports.push([module.i, ".cart[data-v-b7f93bea] {\n  background-color: #fff;\n  position: fixed;\n  z-index: 5;\n  top: 0;\n  right: 0;\n  height: 100vh;\n  width: 350px;\n  padding: 0 15px 15px;\n  transition: all 0.5s ease;\n}\n.cart.hidden[data-v-b7f93bea] {\n  right: -350px;\n}\n.cart .cart-warning[data-v-b7f93bea] {\n  text-align: center;\n  padding: 20px 0;\n}\n.cart .cart-warning span[data-v-b7f93bea] {\n  font-size: 18px;\n  color: #999999;\n}\n.cart .title[data-v-b7f93bea] {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  align-items: center;\n  padding: 25px 0;\n  border-bottom: 1px solid rgba(0, 0, 0, 0.1);\n}\n.cart .title h3[data-v-b7f93bea], .cart .title span[data-v-b7f93bea] {\n  text-transform: uppercase;\n  font-weight: 700;\n  color: #1e1d23;\n}\n.cart .title h3[data-v-b7f93bea] {\n  font-size: 20px;\n}\n.cart .title span[data-v-b7f93bea] {\n  font-size: 13px;\n}\n.cart .title .closer[data-v-b7f93bea] {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  align-items: center;\n  cursor: pointer;\n}\n.cart .title .closer .close-cart[data-v-b7f93bea] {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n  position: relative;\n  width: 15px;\n}\n.cart .title .closer .close-cart span[data-v-b7f93bea] {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  background-color: #1e1d23;\n  display: block;\n  height: 2px;\n  width: 10px;\n  transition: all 0.3s ease;\n}\n.cart .title .closer .close-cart span[data-v-b7f93bea]:first-of-type {\n  transform: translate(-50%, -50%) rotate(45deg);\n}\n.cart .title .closer .close-cart span[data-v-b7f93bea]:last-of-type {\n  transform: translate(-50%, -50%) rotate(-45deg);\n}\n.cart .title .closer:hover .close-cart > span[data-v-b7f93bea]:first-of-type {\n  transform: translate(-50%, -50%) rotate(0deg);\n}\n.cart .title .closer:hover .close-cart > span[data-v-b7f93bea]:last-of-type {\n  transform: translate(-50%, -50%) rotate(0deg);\n}\n.cart .order-details[data-v-b7f93bea] {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  align-items: flex-start;\n  height: calc(100% - 75px);\n}\n.cart .order-details .items[data-v-b7f93bea] {\n  list-style-type: none;\n  width: 100%;\n}\n.cart .order-details .items li[data-v-b7f93bea] {\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-start;\n  align-items: center;\n  border-bottom: 1px solid rgba(0, 0, 0, 0.1);\n  cursor: pointer;\n  padding: 10px 0;\n}\n.cart .order-details .items li .left-cart-item .fa-times-circle[data-v-b7f93bea] {\n  color: #999999;\n}\n.cart .order-details .items li .left-cart-item .fa-times-circle[data-v-b7f93bea]:hover {\n  color: #ffc222;\n}\n.cart .order-details .items li .left-cart-item img[data-v-b7f93bea] {\n  background-color: #f7f4ef;\n  height: 60px;\n  width: 60px;\n  border-radius: 40%;\n  margin-right: 5px;\n  height: 60px;\n}\n.cart .order-details .items li .left-cart-item span[data-v-b7f93bea] {\n  margin-right: 5px;\n  font-size: 14px;\n  line-height: 14px;\n}\n.cart .order-details .items li .right-cart-item[data-v-b7f93bea] {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: flex-start;\n  margin-left: 5px;\n}\n.cart .order-details .items li .right-cart-item a[data-v-b7f93bea] {\n  color: #1e1d23;\n}\n.cart .order-details .items li .right-cart-item a[data-v-b7f93bea]:hover {\n  color: #ffc222;\n}\n.cart .order-details .items li .right-cart-item .pricing span[data-v-b7f93bea]:last-of-type {\n  color: #ffc222;\n}\n.cart .order-details .checkout[data-v-b7f93bea] {\n  border-top: 1px solid rgba(0, 0, 0, 0.1);\n  width: 100%;\n}\n.cart .order-details .checkout .summary[data-v-b7f93bea] {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  align-items: center;\n}\n.cart .order-details .checkout .summary strong[data-v-b7f93bea] {\n  text-transform: uppercase;\n  display: block;\n  padding: 20px 0;\n  font-weight: 700;\n  font-size: 18px;\n}\n.cart .order-details .checkout .actions a[data-v-b7f93bea] {\n  text-transform: uppercase;\n  text-align: center;\n  display: block;\n  padding: 10px 30px;\n  margin: 0;\n}\n.cart .order-details .checkout .actions a[data-v-b7f93bea]:first-of-type {\n  background-color: #ffc222;\n  border-radius: 8px;\n  padding: 20px 45px;\n  color: #1e1d23;\n  font-size: 14px;\n  font-weight: 700;\n  margin-right: 30px;\n  transition: all 0.3s ease;\n  z-index: 3;\n  margin-right: 0;\n  margin-bottom: 15px;\n  padding: 15px 30px;\n}\n.cart .order-details .checkout .actions a[data-v-b7f93bea]:first-of-type:hover {\n  background-color: #eeac00;\n  text-decoration: none;\n  color: #fff;\n}\n.cart .order-details .checkout .actions a[data-v-b7f93bea]:last-of-type {\n  background-color: #fff;\n  border-radius: 8px;\n  padding: 20px 45px;\n  color: #1e1d23;\n  font-size: 14px;\n  font-weight: 700;\n  margin-right: 30px;\n  transition: all 0.3s ease;\n  z-index: 3;\n  border: 1px solid #1e1d23;\n  margin-right: 0;\n  padding: 15px 30px;\n}\n.cart .order-details .checkout .actions a[data-v-b7f93bea]:last-of-type:hover {\n  background-color: #fff;\n  text-decoration: none;\n  color: #ffc222;\n}\n.cart .order-details .checkout .actions a[data-v-b7f93bea]:last-of-type:hover {\n  border: 1px solid #ffc222;\n}", ""]);
 
 // exports
 
@@ -7865,7 +8010,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "header.guest > section:first-of-type {\n  background-color: #1e1d23;\n  padding: 5px 0;\n  color: #fff;\n}\nheader.guest > section:first-of-type .social span {\n  transition: all 0.1s ease;\n}\nheader.guest > section:first-of-type .social span:hover {\n  color: #ffc222;\n  cursor: pointer;\n}\nheader.guest > nav {\n  padding: 30px 0;\n}\nheader.guest > nav .links {\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-start;\n  align-items: center;\n  padding-right: 30px;\n}\nheader.guest > nav .links .logo {\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-start;\n  align-items: center;\n  flex-basis: 1;\n}\nheader.guest > nav .links .logo img {\n  max-height: 40px;\n  width: 120px;\n  margin-right: 50px;\n}\nheader.guest > nav .links ul {\n  flex-grow: 1;\n  flex-basis: 0.9;\n}\nheader.guest > nav .links ul li a {\n  color: #1e1d23;\n  text-decoration: none;\n  font-weight: 700;\n  font-size: 16px;\n}\nheader.guest > nav .links ul li a.active {\n  color: #ffc222;\n}\nheader.guest > nav .contacts {\n  display: flex;\n  flex-direction: row;\n  justify-content: center;\n  align-items: center;\n}\nheader.guest > nav .contacts img {\n  filter: invert(37%) sepia(78%) saturate(653%) hue-rotate(100deg) brightness(99%) contrast(94%);\n  max-height: 40px;\n}\nheader.guest > nav .contacts > div {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: flex-start;\n  padding-left: 10px;\n}\nheader.guest > nav .contacts > div span:first-of-type {\n  color: #999999;\n  font-size: 13px;\n}\nheader.guest > nav .contacts > div span:last-of-type {\n  color: #ffc222;\n  font-size: 24px;\n  font-weight: bold;\n}\nheader.guest > nav .icons {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  align-items: center;\n}\nheader.guest > nav .icons span, header.guest > nav .icons img {\n  display: block;\n  width: 38px;\n  height: 38px;\n  padding: 5px;\n  border-radius: 50%;\n  border: 1px solid #e5e5e5;\n  transition: all 0.1s ease;\n}\nheader.guest > nav .icons span:hover, header.guest > nav .icons img:hover {\n  background-color: #ffc222;\n  cursor: pointer;\n}\nheader.guest > nav .icons span {\n  display: flex;\n  flex-direction: row;\n  justify-content: center;\n  align-items: center;\n  font-size: 14px;\n}\nheader.guest > nav .icons img {\n  padding: 8px;\n}", ""]);
+exports.push([module.i, "header.guest > section:first-of-type {\n  background-color: #1e1d23;\n  padding: 5px 0;\n  color: #fff;\n}\nheader.guest > section:first-of-type .social span {\n  transition: all 0.1s ease;\n}\nheader.guest > section:first-of-type .social span:hover {\n  color: #ffc222;\n  cursor: pointer;\n}\nheader.guest > nav {\n  padding: 30px 0;\n}\nheader.guest > nav .links {\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-start;\n  align-items: center;\n  padding-right: 30px;\n}\nheader.guest > nav .links .logo {\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-start;\n  align-items: center;\n  flex-basis: 1;\n}\nheader.guest > nav .links .logo img {\n  max-height: 40px;\n  width: 120px;\n  margin-right: 50px;\n}\nheader.guest > nav .links ul {\n  flex-grow: 1;\n  flex-basis: 0.9;\n}\nheader.guest > nav .links ul li a {\n  color: #1e1d23;\n  text-decoration: none;\n  font-weight: 700;\n  font-size: 16px;\n}\nheader.guest > nav .links ul li a.active {\n  color: #ffc222;\n}\nheader.guest > nav .contacts {\n  display: flex;\n  flex-direction: row;\n  justify-content: center;\n  align-items: center;\n}\nheader.guest > nav .contacts img {\n  filter: invert(37%) sepia(78%) saturate(653%) hue-rotate(100deg) brightness(99%) contrast(94%);\n  max-height: 40px;\n}\nheader.guest > nav .contacts > div {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: flex-start;\n  padding-left: 10px;\n}\nheader.guest > nav .contacts > div span:first-of-type {\n  color: #999999;\n  font-size: 13px;\n}\nheader.guest > nav .contacts > div span:last-of-type {\n  color: #ffc222;\n  font-size: 24px;\n  font-weight: bold;\n}\nheader.guest > nav .icons {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  align-items: center;\n  position: relative;\n}\nheader.guest > nav .icons span, header.guest > nav .icons img {\n  display: block;\n  width: 38px;\n  height: 38px;\n  padding: 5px;\n  border-radius: 50%;\n  border: 1px solid #e5e5e5;\n  transition: all 0.1s ease;\n}\nheader.guest > nav .icons span:hover, header.guest > nav .icons img:hover {\n  background-color: #ffc222;\n  cursor: pointer;\n}\nheader.guest > nav .icons span {\n  display: flex;\n  flex-direction: row;\n  justify-content: center;\n  align-items: center;\n  font-size: 14px;\n}\nheader.guest > nav .icons img {\n  padding: 8px;\n}\nheader.guest > nav .icons .counter {\n  display: flex;\n  flex-direction: row;\n  justify-content: center;\n  align-items: center;\n  border: 1px solid #fff;\n  position: absolute;\n  font-size: 10px;\n  right: 8px;\n  top: 8px;\n  width: 18px;\n  height: 18px;\n  border-radius: 50%;\n  background-color: #ffc222;\n  color: #1e1d23;\n}", ""]);
 
 // exports
 
@@ -7884,7 +8029,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".config {\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-start;\n  align-items: center;\n}\n.config .price {\n  position: absolute;\n  left: 30px;\n  bottom: 25px;\n}\n.config .price span {\n  font-size: 20px;\n  font-weight: 700;\n}\n.config .price span:first-of-type {\n  text-decoration: line-through;\n  color: #999999;\n}\n.config .price span:last-of-type {\n  color: #ffc222;\n}\n.config .sizes {\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-start;\n  align-items: flex-end;\n  flex-basis: 30%;\n}\n.config .sizes span:first-of-type {\n  margin-right: 10px;\n  color: #999999;\n}\n.config .sizes span:last-of-type {\n  display: flex;\n  flex-direction: row;\n  justify-content: center;\n  align-items: center;\n  font-size: 15px;\n  height: 40px;\n  width: 40px;\n  border-radius: 50%;\n  background-color: #ffc222;\n}\n.config .sizes span:last-of-type:hover {\n  cursor: pointer;\n  background-color: #eeac00;\n}", ""]);
+exports.push([module.i, ".config {\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-start;\n  align-items: center;\n}\n.config .price {\n  position: absolute;\n  left: 30px;\n  bottom: 25px;\n}\n.config .price span {\n  font-size: 20px;\n  font-weight: 700;\n}\n.config .price span:first-of-type {\n  text-decoration: line-through;\n  color: #999999;\n}\n.config .price span:last-of-type {\n  color: #ffc222;\n}\n.config .sizes {\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-start;\n  align-items: flex-end;\n  flex-basis: 30%;\n}\n.config .sizes span:first-of-type {\n  margin-right: 10px;\n  color: #999999;\n}\n.config .sizes span.types {\n  display: flex;\n  flex-direction: row;\n  justify-content: center;\n  align-items: center;\n  font-size: 15px;\n  height: 40px;\n  width: 40px;\n  border-radius: 50%;\n  margin-right: 5px;\n}\n.config .sizes span.types.active {\n  background-color: #ffc222;\n}\n.config .sizes span.types:hover {\n  cursor: pointer;\n  background-color: #eeac00;\n}", ""]);
 
 // exports
 
@@ -7960,7 +8105,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".other-products {\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-end;\n  align-items: center;\n  position: relative;\n}\n.other-products a {\n  display: block;\n  padding: 20px 0;\n}\n.other-products a:first-of-type {\n  margin-right: 10px;\n}\n.other-products a > span {\n  display: flex;\n  flex-direction: row;\n  justify-content: center;\n  align-items: center;\n  background-color: #ffc222;\n  padding: 20px;\n  width: 35px;\n  height: 35px;\n  border-radius: 50%;\n  font-size: 10px;\n  color: #1e1d23;\n}\n.other-products a > span:hover {\n  text-decoration: none;\n  background-color: #eeac00;\n}\n.other-products a .preview {\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-start;\n  align-items: center;\n  width: 240px;\n  height: 80px;\n  padding: 2px 15px;\n  position: absolute;\n  right: 15px;\n  bottom: -75px;\n  background-color: #fff;\n  border-radius: 15px;\n  box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.1);\n}\n.other-products a .preview img {\n  height: 100%;\n}\n.other-products a .preview div h2 {\n  text-align: left;\n  color: #1e1d23;\n  font-size: 14px;\n  font-weight: 700;\n}\n.other-products a .preview div h2:hover {\n  color: #ffc222;\n  text-decoration: underline;\n}\n.other-products a .preview .config {\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-start;\n  align-items: center;\n}\n.other-products a .preview .config .price {\n  position: unset;\n  left: unset;\n  bottom: unset;\n}\n.other-products a .preview .config .price span {\n  font-size: 14px;\n  font-weight: 700;\n}\n.other-products a .preview .config .price span:first-of-type {\n  text-decoration: line-through;\n  color: #999999;\n}\n.other-products a .preview .config .price span:last-of-type {\n  color: #ffc222;\n}\n.other-products a .fade-enter-active {\n  -webkit-animation: fadeIn 0.6s ease forwards;\n          animation: fadeIn 0.6s ease forwards;\n}\n.other-products a .fade-leave-active {\n  -webkit-animation: fadeOut 0.6s ease forwards;\n          animation: fadeOut 0.6s ease forwards;\n}\n@-webkit-keyframes fadeIn {\nfrom {\n    opacity: 0;\n    bottom: -90px;\n}\nto {\n    opacity: 1;\n    bottom: -75px;\n}\n}\n@keyframes fadeIn {\nfrom {\n    opacity: 0;\n    bottom: -90px;\n}\nto {\n    opacity: 1;\n    bottom: -75px;\n}\n}\n@-webkit-keyframes fadeOut {\nfrom {\n    opacity: 1;\n    bottom: -75px;\n}\nto {\n    opacity: 0;\n    bottom: -90px;\n}\n}\n@keyframes fadeOut {\nfrom {\n    opacity: 1;\n    bottom: -75px;\n}\nto {\n    opacity: 0;\n    bottom: -90px;\n}\n}", ""]);
+exports.push([module.i, ".other-products {\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-end;\n  align-items: center;\n  position: relative;\n}\n.other-products a {\n  display: block;\n  padding: 30px 0;\n}\n.other-products a:first-of-type {\n  margin-right: 20px;\n}\n.other-products a > span {\n  display: flex;\n  flex-direction: row;\n  justify-content: center;\n  align-items: center;\n  background-color: #ffc222;\n  padding: 20px;\n  width: 35px;\n  height: 35px;\n  border-radius: 50%;\n  font-size: 10px;\n  color: #1e1d23;\n}\n.other-products a > span:hover {\n  text-decoration: none;\n  background-color: #eeac00;\n}\n.other-products a .preview {\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-start;\n  align-items: center;\n  width: 240px;\n  height: 80px;\n  padding: 2px 15px;\n  position: absolute;\n  right: 15px;\n  bottom: -75px;\n  background-color: #fff;\n  border-radius: 15px;\n  box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.1);\n}\n.other-products a .preview img {\n  height: 100%;\n}\n.other-products a .preview div h2 {\n  text-align: left;\n  color: #1e1d23;\n  font-size: 14px;\n  font-weight: 700;\n}\n.other-products a .preview div h2:hover {\n  color: #ffc222;\n  text-decoration: underline;\n}\n.other-products a .preview .config {\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-start;\n  align-items: center;\n}\n.other-products a .preview .config .price {\n  position: unset;\n  left: unset;\n  bottom: unset;\n}\n.other-products a .preview .config .price span {\n  font-size: 14px;\n  font-weight: 700;\n}\n.other-products a .preview .config .price span:first-of-type {\n  text-decoration: line-through;\n  color: #999999;\n}\n.other-products a .preview .config .price span:last-of-type {\n  color: #ffc222;\n}\n.other-products a .fade-enter-active {\n  -webkit-animation: fadeIn 0.6s ease forwards;\n          animation: fadeIn 0.6s ease forwards;\n}\n.other-products a .fade-leave-active {\n  -webkit-animation: fadeOut 0.6s ease forwards;\n          animation: fadeOut 0.6s ease forwards;\n}\n@-webkit-keyframes fadeIn {\nfrom {\n    opacity: 0;\n    bottom: -90px;\n}\nto {\n    opacity: 1;\n    bottom: -75px;\n}\n}\n@keyframes fadeIn {\nfrom {\n    opacity: 0;\n    bottom: -90px;\n}\nto {\n    opacity: 1;\n    bottom: -75px;\n}\n}\n@-webkit-keyframes fadeOut {\nfrom {\n    opacity: 1;\n    bottom: -75px;\n}\nto {\n    opacity: 0;\n    bottom: -90px;\n}\n}\n@keyframes fadeOut {\nfrom {\n    opacity: 1;\n    bottom: -75px;\n}\nto {\n    opacity: 0;\n    bottom: -90px;\n}\n}", ""]);
 
 // exports
 
@@ -40083,7 +40228,73 @@ var render = function() {
           },
           [_c("span", [_vm._v("close")]), _vm._v(" "), _vm._m(0)]
         )
-      ])
+      ]),
+      _vm._v(" "),
+      _vm.cartItems.length != 0
+        ? _c("div", { staticClass: "order-details" }, [
+            _c(
+              "ul",
+              { staticClass: "items" },
+              _vm._l(_vm.cartItems, function(item) {
+                return _c("li", [
+                  _c("div", { staticClass: "left-cart-item" }, [
+                    _c("span", {
+                      staticClass: "fal fa-times-circle",
+                      on: {
+                        click: function($event) {
+                          return _vm.deleteItem(item.id)
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("img", {
+                      attrs: { src: "/" + item.cover, alt: item.name }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "right-cart-item" }, [
+                    _c(
+                      "a",
+                      {
+                        attrs: {
+                          href: _vm.route("product", { slug: item.slug })
+                        }
+                      },
+                      [_vm._v(" " + _vm._s(item.name) + " ")]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "pricing" }, [
+                      _c("span", [_vm._v(" " + _vm._s(item.quantity) + " x ")]),
+                      _vm._v(" "),
+                      _c("span", [
+                        _vm._v(
+                          " $" +
+                            _vm._s(
+                              _vm.discountPrice(item.price, item.discount)
+                            ) +
+                            " "
+                        )
+                      ])
+                    ])
+                  ])
+                ])
+              }),
+              0
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "checkout" }, [
+              _c("div", { staticClass: "summary" }, [
+                _c("strong", [_vm._v("subtotal:")]),
+                _vm._v(" "),
+                _c("strong", [_vm._v(" $" + _vm._s(_vm.totalCart) + " ")])
+              ]),
+              _vm._v(" "),
+              _vm._m(1)
+            ])
+          ])
+        : _c("div", { staticClass: "cart-warning" }, [
+            _c("span", [_vm._v("No products in the cart.")])
+          ])
     ]
   )
 }
@@ -40096,6 +40307,16 @@ var staticRenderFns = [
       _c("span"),
       _vm._v(" "),
       _c("span")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "actions" }, [
+      _c("a", { attrs: { href: "#" } }, [_vm._v("checkout")]),
+      _vm._v(" "),
+      _c("a", { attrs: { href: "#" } }, [_vm._v("view cart")])
     ])
   }
 ]
@@ -40201,7 +40422,11 @@ var render = function() {
                           ]),
                           _vm._v(" "),
                           _c("pricing", {
-                            attrs: { productPricing: product, sizes: false }
+                            attrs: {
+                              productPricing: product,
+                              sizes: false,
+                              activeConfig: 0
+                            }
                           })
                         ],
                         1
@@ -40524,7 +40749,11 @@ var render = function() {
                     return _vm.cart()
                   }
                 }
-              })
+              }),
+              _vm._v(" "),
+              _c("span", { staticClass: "counter" }, [
+                _vm._v(" " + _vm._s(_vm.cartCounter) + " ")
+              ])
             ])
           ])
         ])
@@ -40623,20 +40852,20 @@ var render = function() {
   return _c("div", { staticClass: "config" }, [
     _c("div", { staticClass: "price" }, [
       _c("span", { staticClass: "mr-2" }, [
+        _vm._v(" $" + _vm._s(_vm.configs[_vm.activeConfig].price) + " ")
+      ]),
+      _vm._v(" "),
+      _c("span", [
         _vm._v(
           " $" +
             _vm._s(
-              _vm.beforePrice(
+              _vm.discountPrice(
                 _vm.configs[_vm.activeConfig].price,
                 _vm.configs[_vm.activeConfig].discount
               )
             ) +
             " "
         )
-      ]),
-      _vm._v(" "),
-      _c("span", [
-        _vm._v(" $" + _vm._s(_vm.configs[_vm.activeConfig].price) + " ")
       ])
     ]),
     _vm._v(" "),
@@ -40660,6 +40889,8 @@ var render = function() {
           return _c(
             "span",
             {
+              staticClass: "types",
+              class: index == _vm.activeConfig ? "active" : "",
               on: {
                 click: function($event) {
                   return _vm.changeConfig(index)
@@ -40914,7 +41145,11 @@ var render = function() {
                     "div",
                     [
                       _c("pricing", {
-                        attrs: { productPricing: _vm.product, sizes: false }
+                        attrs: {
+                          productPricing: _vm.product,
+                          sizes: false,
+                          activeConfig: _vm.activeConfig
+                        }
                       }),
                       _vm._v(" "),
                       _c("rating", { attrs: { productRating: _vm.product } })
@@ -40924,11 +41159,21 @@ var render = function() {
                 ])
               ]),
               _vm._v(" "),
-              _c("button", [
-                _vm._v(
-                  "\n                        add to cart\n                    "
-                )
-              ])
+              _c(
+                "button",
+                {
+                  on: {
+                    click: function($event) {
+                      return _vm.addToCart()
+                    }
+                  }
+                },
+                [
+                  _vm._v(
+                    "\n                        add to cart\n                    "
+                  )
+                ]
+              )
             ])
           ])
         ])
@@ -41083,7 +41328,8 @@ var render = function() {
                   _c("pricing", {
                     attrs: {
                       productPricing: _vm.relatedProducts[_vm.prevProduct],
-                      sizes: false
+                      sizes: false,
+                      activeConfig: 0
                     }
                   })
                 ],
@@ -41153,7 +41399,8 @@ var render = function() {
                   _c("pricing", {
                     attrs: {
                       productPricing: _vm.relatedProducts[_vm.nextProduct],
-                      sizes: false
+                      sizes: false,
+                      activeConfig: 0
                     }
                   })
                 ],
@@ -41333,7 +41580,10 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("heady"),
+      _c("heady", {
+        attrs: { cartVisibility: _vm.cart, cartCounter: _vm.cartCounter },
+        on: { shoppingCart: _vm.cartStatus }
+      }),
       _vm._v(" "),
       _c("main", { staticClass: "guest" }, [
         _vm._m(0),
@@ -41371,6 +41621,15 @@ var render = function() {
         _vm._v(" "),
         _vm._m(4)
       ]),
+      _vm._v(" "),
+      _c("cart", {
+        attrs: {
+          cartVisibility: _vm.cart,
+          cartItems: _vm.cartItems,
+          totalCart: _vm.totalCart
+        },
+        on: { shoppingCart: _vm.cartStatus, removedItem: _vm.removedItem }
+      }),
       _vm._v(" "),
       _c("footy")
     ],
@@ -41636,7 +41895,7 @@ var render = function() {
     "div",
     [
       _c("heady", {
-        attrs: { cartVisibility: _vm.cart },
+        attrs: { cartVisibility: _vm.cart, cartCounter: _vm.cartCounter },
         on: { shoppingCart: _vm.cartStatus }
       }),
       _vm._v(" "),
@@ -41733,7 +41992,12 @@ var render = function() {
                     "div",
                     [
                       _c("pricing", {
-                        attrs: { productPricing: _vm.product, sizes: true }
+                        attrs: {
+                          productPricing: _vm.product,
+                          sizes: true,
+                          activeConfig: _vm.activeConfig
+                        },
+                        on: { config: _vm.choosenConfig }
                       })
                     ],
                     1
@@ -41757,7 +42021,22 @@ var render = function() {
                     })
                   ]),
                   _vm._v(" "),
-                  _vm._m(0),
+                  _c(
+                    "button",
+                    {
+                      on: {
+                        click: function($event) {
+                          return _vm.addToCart()
+                        }
+                      }
+                    },
+                    [
+                      _c("span", { staticClass: "far fa-shopping-basket" }),
+                      _vm._v(
+                        "\n                                add to cart\n                            "
+                      )
+                    ]
+                  ),
                   _vm._v(" "),
                   _c("span", { staticClass: "fas fa-heart" })
                 ]),
@@ -41772,10 +42051,10 @@ var render = function() {
                     ])
                   ]),
                   _vm._v(" "),
-                  _vm._m(1)
+                  _vm._m(0)
                 ]),
                 _vm._v(" "),
-                _vm._m(2),
+                _vm._m(1),
                 _vm._v(" "),
                 _c("div", { staticClass: "trust-badges" }, [
                   _c("h5", { staticClass: "mb-0" }, [
@@ -41808,7 +42087,7 @@ var render = function() {
                     class: _vm.nutritionVisibility == true ? "active" : "",
                     on: {
                       click: function($event) {
-                        return _vm.testButton()
+                        return _vm.switchReviewsNutrition()
                       }
                     }
                   },
@@ -41821,7 +42100,7 @@ var render = function() {
                     class: _vm.nutritionVisibility == false ? "active" : "",
                     on: {
                       click: function($event) {
-                        return _vm.testButton()
+                        return _vm.switchReviewsNutrition()
                       }
                     }
                   },
@@ -41962,7 +42241,7 @@ var render = function() {
       _c("section", { staticClass: "related" }, [
         _c("div", { staticClass: "wrapper" }, [
           _c("div", { staticClass: "container-fluid" }, [
-            _vm._m(3),
+            _vm._m(2),
             _vm._v(" "),
             _c(
               "div",
@@ -41983,11 +42262,18 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("cart", {
-        attrs: { cartVisibility: _vm.cart },
-        on: { shoppingCart: _vm.cartStatus }
+        attrs: {
+          cartVisibility: _vm.cart,
+          cartItems: _vm.cartItems,
+          totalCart: _vm.totalCart
+        },
+        on: { shoppingCart: _vm.cartStatus, removedItem: _vm.removedItem }
       }),
       _vm._v(" "),
-      _c("reminder", { attrs: { product: _vm.product } }),
+      _c("reminder", {
+        attrs: { product: _vm.product, activeConfig: _vm.activeConfig },
+        on: { cart: _vm.cartReminder }
+      }),
       _vm._v(" "),
       _c("footy")
     ],
@@ -41995,17 +42281,6 @@ var render = function() {
   )
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("a", { attrs: { href: "#" } }, [
-      _c("span", { staticClass: "far fa-shopping-basket" }),
-      _vm._v(
-        "\n                                add to cart\n                            "
-      )
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
