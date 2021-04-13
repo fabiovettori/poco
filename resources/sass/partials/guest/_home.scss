@@ -269,7 +269,7 @@ main.guest {
             @include flex(row, flex-start, center);
             flex-wrap: wrap;
             position: relative;
-            padding-bottom: 50px;
+            padding-bottom: 20px;
 
             img[alt="pizza"]{
                 position: absolute;
@@ -304,6 +304,7 @@ main.guest {
                 height: 470px;
                 padding: 20px 30px;
                 position: relative;
+                margin-bottom: 30px;
 
                 &:hover {
                     text-decoration: none;
@@ -432,6 +433,9 @@ main.guest {
 
         a[name='shop'] {
             @include button ($primary, $dark, #eeac00, $light);
+            max-width: 190px;
+            display: block;
+            margin: auto;
         }
     }
 
@@ -685,6 +689,7 @@ main.guest {
 
             div.description {
                 position: relative;
+                z-index: 3;
                 padding: 120px 0;
 
                 h2 {

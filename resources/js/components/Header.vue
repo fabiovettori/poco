@@ -26,7 +26,7 @@
             </div>
         </section>
 
-        <nav>
+        <nav ref="headerBottom">
             <div class="wrapper">
                 <div class="container-fluid">
                     <div class="row">
@@ -66,7 +66,9 @@
 
                         <div class="col-2 icons">
                             <span class="fas fa-search"></span>
-                            <span class="fas fa-user"></span>
+                            <span class="fas fa-user">
+                                <account />
+                            </span>
                             <span class="fas fa-heart"></span>
                             <img src=" /images/cart.svg " alt="shopping cart" @click="cart()">
                             <span class="counter"> {{ cartCounter }} </span>
@@ -79,11 +81,19 @@
 </template>
 
 <script>
+import Account from './Account';
+
 export default {
     name: 'Heady',
     props: {
         cartVisibility: Boolean,
         cartCounter: Number,
+    },
+    components: {
+        Account,
+    },
+    mounted(){
+        this.headerAnimation();
     },
     data(){
         return {
@@ -93,6 +103,23 @@ export default {
     methods: {
         cart(){
             this.$emit('shoppingCart', !this.cartVisibility);
+        },
+        headerAnimation(){
+            let self = this;
+            let headerTop = self.$refs.headerBottom;
+            window.addEventListener('scroll', function(){
+                let userscroll = window.scrollY;
+
+                if (userscroll >= 200){
+                    headerTop.classList.add("small");
+                } else if (userscroll >= 33) {
+                    headerTop.classList.add("fixed");
+                } else if (userscroll <= 33){
+                    headerTop.classList.remove("fixed");
+                } else if (userscroll <= 200){
+                    headerTop.classList.remove("small");
+                }
+            });
         }
     }
 }
@@ -121,6 +148,20 @@ export default {
 
     header.guest > nav {
         padding: 30px 0;
+        background-color: $light;
+        transition: all .3s ease;
+
+        &.fixed {
+            position: fixed;
+            z-index: 5;
+            top: 0;
+            left: 0;
+            width: 100%;
+
+            &.small {
+                padding: 5px 0;
+            }
+        }
 
         .links {
             @include flex(row, flex-start, center);
@@ -181,7 +222,7 @@ export default {
             @include flex(row, space-between, center);
             position: relative;
 
-            span, img {
+            > span, > img {
                 display: block;
                 width: 38px;
                 height: 38px;
@@ -195,10 +236,30 @@ export default {
                     cursor: pointer;
                 }
             }
-            span {
+            > span {
                 @include flex(row, center, center);
                 font-size: 14px;
-            } img {
+
+                &.fa-user {
+                    position: relative;
+
+                    &:after {
+                        content: '';
+                        position: absolute;
+                        width: 80px;
+                        height: 30px;
+                        right: 0;
+                        top: 40px;
+
+                    }
+
+                    &:hover .account {
+                        display: block;
+                    }
+                }
+            }
+
+            img {
                 padding: 8px
             }
 

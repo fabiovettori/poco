@@ -16474,7 +16474,7 @@ main.guest section.popular-dishes div.dishes {
   align-items: center;
   flex-wrap: wrap;
   position: relative;
-  padding-bottom: 50px;
+  padding-bottom: 20px;
 }
 main.guest section.popular-dishes div.dishes img[alt=pizza] {
   position: absolute;
@@ -16506,6 +16506,7 @@ main.guest section.popular-dishes div.dishes .tile {
   height: 470px;
   padding: 20px 30px;
   position: relative;
+  margin-bottom: 30px;
 }
 main.guest section.popular-dishes div.dishes .tile:hover {
   text-decoration: none;
@@ -16621,6 +16622,9 @@ main.guest section.popular-dishes a[name=shop] {
   margin-right: 30px;
   transition: all 0.3s ease;
   z-index: 3;
+  max-width: 190px;
+  display: block;
+  margin: auto;
 }
 main.guest section.popular-dishes a[name=shop]:hover {
   background-color: #eeac00;
@@ -16871,6 +16875,7 @@ main.guest section.offers div[class*=col] {
 }
 main.guest section.offers div[class*=col] div.description {
   position: relative;
+  z-index: 3;
   padding: 120px 0;
 }
 main.guest section.offers div[class*=col] div.description h2 {
