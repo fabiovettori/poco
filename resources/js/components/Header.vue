@@ -65,13 +65,19 @@
                         </div>
 
                         <div class="col-2 icons">
-                            <span class="fas fa-search"></span>
+                            <span class="fas fa-search" @click.self="finderVisibility = !finderVisibility">
+                                <transition name="finder">
+                                    <finder v-show="finderVisibility" @status="finderVisibility = !finderVisibility" />
+                                </transition>
+                            </span>
                             <span class="fas fa-user">
                                 <account />
                             </span>
                             <span class="fas fa-heart"></span>
-                            <img src=" /images/cart.svg " alt="shopping cart" @click="cart()">
-                            <span class="counter"> {{ cartCounter }} </span>
+                            <img src=" /images/cart.svg " alt="shopping cart" @click="$emit('shoppingCart', !cartVisibility)">
+                            <transition name="counterAnimation">
+                                <span class="counter" :key="cartCounter"> {{ cartCounter }} </span>
+                            </transition>
                         </div>
                     </div>
                 </div>
@@ -82,6 +88,7 @@
 
 <script>
 import Account from './Account';
+import Finder from './Finder';
 
 export default {
     name: 'Heady',
@@ -91,19 +98,17 @@ export default {
     },
     components: {
         Account,
+        Finder,
     },
     mounted(){
         this.headerAnimation();
     },
     data(){
         return {
-
+            finderVisibility: false,
         }
     },
     methods: {
-        cart(){
-            this.$emit('shoppingCart', !this.cartVisibility);
-        },
         headerAnimation(){
             let self = this;
             let headerTop = self.$refs.headerBottom;
@@ -120,7 +125,7 @@ export default {
                     headerTop.classList.remove("small");
                 }
             });
-        }
+        },
     }
 }
 </script>
@@ -150,6 +155,18 @@ export default {
         padding: 30px 0;
         background-color: $light;
         transition: all .3s ease;
+
+        .finder-enter, .finder-leave-to {
+            opacity: 0;
+        }
+
+        .finder-leave {
+            opacity: 1;
+        }
+
+        .finder-enter-active,  .finder-leave-active {
+            transition: all .5s ease;
+        }
 
         &.fixed {
             position: fixed;
@@ -240,13 +257,13 @@ export default {
                 @include flex(row, center, center);
                 font-size: 14px;
 
-                &.fa-user {
+                &.fa-user, &.fa-search {
                     position: relative;
 
                     &:after {
                         content: '';
                         position: absolute;
-                        width: 80px;
+                        width: 40px;
                         height: 30px;
                         right: 0;
                         top: 40px;
@@ -259,7 +276,7 @@ export default {
                 }
             }
 
-            img {
+            > img {
                 padding: 8px
             }
 
@@ -275,6 +292,28 @@ export default {
                 border-radius: 50%;
                 background-color: $primary;
                 color: $dark;
+            }
+
+            .counterAnimation-enter-active {
+                animation: Counter .5s ease-in-out;
+            }
+
+            @keyframes Counter {
+                0% {
+                    top: 8px;
+                }
+
+                50% {
+                    box-shadow: 0px 0px 8px $primary;
+                    font-size: 12px;
+                    width: 22px;
+                    height: 22px;
+                    top: -8px;
+                }
+
+                100% {
+                    top: 8px;
+                }
             }
         }
     }

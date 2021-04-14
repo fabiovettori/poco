@@ -2,7 +2,7 @@
     <div class="cart" :class="cartVisibility == false ? 'hidden' : ''">
         <div class="title">
             <h3 class="m-0">shopping cart</h3>
-            <div class="closer" @click="cart()">
+            <div class="closer" @click="$emit('shoppingCart', !cartVisibility)">
                 <span>close</span>
                 <div class="close-cart">
                     <span></span>
@@ -53,13 +53,10 @@ export default {
     },
     data(){
         return {
-            
+
         }
     },
     methods: {
-        cart(){
-            this.$emit('shoppingCart', !this.cartVisibility);
-        },
         deleteItem(item_id){
             this.$emit('removedItem', item_id);
         },
@@ -85,7 +82,7 @@ export default {
         height: 100vh;
         width: 350px;
         padding: 0 15px 15px;
-        transition: all .5s ease;
+        transition: all .5s .5s ease;
 
         &.hidden {
             right: -350px;

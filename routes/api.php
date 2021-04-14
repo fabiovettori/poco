@@ -23,6 +23,7 @@ Route::namespace('Api')->group(function(){
     // Home
     Route::get('/categories', 'CategoriesController@show');
     Route::get('/products', 'ProductsController@show');
+    Route::get('/products/all', 'PureProductsController@show');
     Route::get('/testimonials', 'TestimonialsController@show');
 
     // Product
