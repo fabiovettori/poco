@@ -43,10 +43,11 @@
 
 section.errors {
   background-color: #fbf7e8;
-  padding: 150px 0;
+  height: 100vh;
 }
 section.errors img {
   margin-bottom: 35px;
+  padding-top: 80px;
 }
 section.errors h1 {
   color: #1e1d23;
@@ -16209,6 +16210,7 @@ main.guest section.hero {
   background-repeat: no-repeat;
   background-position: 80% 0;
   position: relative;
+  overflow: hidden;
 }
 main.guest section.hero:after {
   content: "";
@@ -16228,9 +16230,52 @@ main.guest section.hero img[alt=pizza] {
   top: 10%;
   z-index: 1;
 }
+main.guest section.hero img[alt=hero-top-left] {
+  position: absolute;
+  opacity: 0;
+  height: 70%;
+  left: -5%;
+  top: 0;
+  z-index: 1;
+}
+main.guest section.hero img[alt=hero-top-right] {
+  position: absolute;
+  opacity: 0;
+  height: 15%;
+  right: -10%;
+  top: 5%;
+  z-index: 1;
+}
+main.guest section.hero img[alt=hero-bottom-right] {
+  position: absolute;
+  opacity: 0;
+  height: 15%;
+  right: 5%;
+  bottom: 5%;
+  z-index: 1;
+}
+main.guest section.hero img[alt=hero-middle-top] {
+  position: absolute;
+  opacity: 0;
+  height: 60%;
+  left: 50%;
+  top: -25%;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+main.guest section.hero img[alt=hero-middle-bottom] {
+  position: absolute;
+  height: 30%;
+  transform: translateX(-50%);
+  right: 15%;
+  bottom: 20%;
+  opacity: 0;
+  z-index: 0;
+}
 main.guest section.hero .call-to-action {
   padding: 250px 0;
   position: relative;
+  opacity: 0;
   z-index: 3;
 }
 main.guest section.hero .call-to-action h2 {
@@ -16293,7 +16338,11 @@ main.guest section.hero .call-to-action > div span:last-of-type {
   font-weight: 700;
   align-self: flex-start;
 }
-main.guest section.hero a[name=menus] {
+main.guest section.categories {
+  padding: 50px 0;
+  position: relative;
+}
+main.guest section.categories a[name=menus] {
   background-color: #ffc222;
   border-radius: 8px;
   padding: 20px 45px;
@@ -16303,18 +16352,16 @@ main.guest section.hero a[name=menus] {
   margin-right: 30px;
   transition: all 0.3s ease;
   z-index: 3;
+  margin: 0;
   position: absolute;
   left: 50%;
-  bottom: 0;
-  transform: translateY(50%);
+  top: 0;
+  transform: translate(-50%, calc(-50% - 50px));
 }
-main.guest section.hero a[name=menus]:hover {
+main.guest section.categories a[name=menus]:hover {
   background-color: #eeac00;
   text-decoration: none;
   color: #fff;
-}
-main.guest section.categories {
-  padding: 50px 0;
 }
 main.guest section.categories ul {
   display: flex;
@@ -16468,11 +16515,6 @@ main.guest section.popular-dishes ul li.active {
   border: 1px solid #ffc222;
 }
 main.guest section.popular-dishes div.dishes {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  flex-wrap: wrap;
   position: relative;
   padding-bottom: 20px;
 }
@@ -16496,7 +16538,29 @@ main.guest section.popular-dishes div.dishes img[alt=pepper] {
   right: 0%;
   z-index: -1;
 }
-main.guest section.popular-dishes div.dishes .tile {
+main.guest section.popular-dishes div.dishes .tiles-wrappper {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+}
+main.guest section.popular-dishes div.dishes .tiles-wrappper .dishes_tiles-enter {
+  top: 70px;
+  opacity: 0;
+}
+main.guest section.popular-dishes div.dishes .tiles-wrappper .dishes_tiles-enter-to, main.guest section.popular-dishes div.dishes .tiles-wrappper .dishes_tiles-leave-to {
+  top: 0;
+  opacity: 1;
+}
+main.guest section.popular-dishes div.dishes .tiles-wrappper .dishes_tiles-leave-to {
+  top: -70px;
+  opacity: 0;
+}
+main.guest section.popular-dishes div.dishes .tiles-wrappper .dishes_tiles-enter-active, main.guest section.popular-dishes div.dishes .tiles-wrappper .dishes_tiles-enter-active {
+  transition: all 0.7s ease;
+}
+main.guest section.popular-dishes div.dishes .tiles-wrappper .tile {
   width: calc((100% / 4) - 30px);
   margin: 0 15px;
   border: 1px solid #e5e5e5;
@@ -16507,19 +16571,20 @@ main.guest section.popular-dishes div.dishes .tile {
   padding: 20px 30px;
   position: relative;
   margin-bottom: 30px;
+  position: relative;
 }
-main.guest section.popular-dishes div.dishes .tile:hover {
+main.guest section.popular-dishes div.dishes .tiles-wrappper .tile:hover {
   text-decoration: none;
 }
-main.guest section.popular-dishes div.dishes .tile h2 {
+main.guest section.popular-dishes div.dishes .tiles-wrappper .tile h2 {
   font-size: 18px;
   font-weight: 700;
   color: #1e1d23;
 }
-main.guest section.popular-dishes div.dishes .tile:hover {
+main.guest section.popular-dishes div.dishes .tiles-wrappper .tile:hover {
   cursor: pointer;
 }
-main.guest section.popular-dishes div.dishes .tile .wishlist {
+main.guest section.popular-dishes div.dishes .tiles-wrappper .tile .wishlist {
   position: absolute;
   color: #dfdfdf;
   top: 20px;
@@ -16527,15 +16592,16 @@ main.guest section.popular-dishes div.dishes .tile .wishlist {
   font-size: 21px;
   z-index: 3;
 }
-main.guest section.popular-dishes div.dishes .tile .wishlist:hover {
+main.guest section.popular-dishes div.dishes .tiles-wrappper .tile .wishlist:hover {
   cursor: pointer;
   color: #1e1d23;
 }
-main.guest section.popular-dishes div.dishes .tile .cover {
+main.guest section.popular-dishes div.dishes .tiles-wrappper .tile .cover {
   position: relative;
   margin-bottom: 10px;
+  height: 60%;
 }
-main.guest section.popular-dishes div.dishes .tile .cover .overlay {
+main.guest section.popular-dishes div.dishes .tiles-wrappper .tile .cover .overlay {
   position: absolute;
   z-index: 1;
   bottom: 0;
@@ -16547,51 +16613,55 @@ main.guest section.popular-dishes div.dishes .tile .cover .overlay {
   transition: all 0.3s ease;
   opacity: 0.2;
 }
-main.guest section.popular-dishes div.dishes .tile .cover img {
+main.guest section.popular-dishes div.dishes .tiles-wrappper .tile .cover img {
   position: relative;
   z-index: 2;
   width: 100%;
-  transition: all 0.3s ease;
+  transition: all 0.6s ease;
+  filter: blur(20px);
 }
-main.guest section.popular-dishes div.dishes .tile:hover .overlay {
+main.guest section.popular-dishes div.dishes .tiles-wrappper .tile .cover img.loaded {
+  filter: blur(0);
+}
+main.guest section.popular-dishes div.dishes .tiles-wrappper .tile:hover .overlay {
   height: 100%;
   opacity: 1;
 }
-main.guest section.popular-dishes div.dishes .tile:hover .cover img {
+main.guest section.popular-dishes div.dishes .tiles-wrappper .tile:hover .cover img {
   transform: scale(1.2);
 }
-main.guest section.popular-dishes div.dishes .tile .rating span {
+main.guest section.popular-dishes div.dishes .tiles-wrappper .tile .rating span {
   color: #ffc222;
 }
-main.guest section.popular-dishes div.dishes .tile .details a {
+main.guest section.popular-dishes div.dishes .tiles-wrappper .tile .details a {
   font-size: 18px;
   font-weight: 700;
   color: #1e1d23;
 }
-main.guest section.popular-dishes div.dishes .tile .details p {
+main.guest section.popular-dishes div.dishes .tiles-wrappper .tile .details p {
   font-size: 14px;
   font-weight: 400;
   color: #808080;
   line-height: 1.5;
   margin-bottom: 30px;
 }
-main.guest section.popular-dishes div.dishes .tile .details div.price {
+main.guest section.popular-dishes div.dishes .tiles-wrappper .tile .details div.price {
   position: absolute;
   left: 30px;
   bottom: 25px;
 }
-main.guest section.popular-dishes div.dishes .tile .details div.price span {
+main.guest section.popular-dishes div.dishes .tiles-wrappper .tile .details div.price span {
   font-size: 20px;
   font-weight: 700;
 }
-main.guest section.popular-dishes div.dishes .tile .details div.price span:first-of-type {
+main.guest section.popular-dishes div.dishes .tiles-wrappper .tile .details div.price span:first-of-type {
   text-decoration: line-through;
   color: #999999;
 }
-main.guest section.popular-dishes div.dishes .tile .details div.price span:last-of-type {
+main.guest section.popular-dishes div.dishes .tiles-wrappper .tile .details div.price span:last-of-type {
   color: #ffc222;
 }
-main.guest section.popular-dishes div.dishes .tile .cart {
+main.guest section.popular-dishes div.dishes .tiles-wrappper .tile .cart {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -16608,7 +16678,7 @@ main.guest section.popular-dishes div.dishes .tile .cart {
   background-repeat: no-repeat;
   background-position: center;
 }
-main.guest section.popular-dishes div.dishes .tile .cart:hover {
+main.guest section.popular-dishes div.dishes .tiles-wrappper .tile .cart:hover {
   background-image: url("../images/cart.png");
   background-color: #eeac00;
 }
@@ -16759,7 +16829,7 @@ main.guest section.testimonials .carousel ul {
   overflow: hidden;
 }
 main.guest section.testimonials .carousel ul .tile {
-  width: calc((100% / 3) - 20px);
+  width: calc((100% / 3) - 30px);
   height: 250px;
   background-color: #fff;
   border-radius: 8px;
@@ -16873,6 +16943,40 @@ main.guest section.offers div[class*=col] {
   overflow: hidden;
   position: relative;
 }
+main.guest section.offers div[class*=col] img {
+  position: absolute;
+  z-index: 0;
+  right: -100%;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 80%;
+  width: 100%;
+  opacity: 0;
+}
+main.guest section.offers div[class*=col] img.active {
+  -webkit-animation: offerLazy 1s ease forwards;
+          animation: offerLazy 1s ease forwards;
+}
+@-webkit-keyframes offerLazy {
+  0% {
+    opacity: 0;
+    right: -100%;
+  }
+  100% {
+    opacity: 1;
+    right: -40%;
+  }
+}
+@keyframes offerLazy {
+  0% {
+    opacity: 0;
+    right: -100%;
+  }
+  100% {
+    opacity: 1;
+    right: -40%;
+  }
+}
 main.guest section.offers div[class*=col] div.description {
   position: relative;
   z-index: 3;
@@ -16940,19 +17044,6 @@ main.guest section.offers div[class*=col]:before {
 main.guest section.offers div[class*=col]:hover:before {
   transform: translateY(-50%) scale(1);
 }
-main.guest section.offers div[class*=col]:after {
-  content: "";
-  background-size: auto 100%;
-  background-repeat: no-repeat;
-  background-position: left;
-  position: absolute;
-  z-index: 1;
-  right: -40%;
-  top: 50%;
-  transform: translateY(-50%);
-  height: 80%;
-  width: 100%;
-}
 main.guest section.offers div[class*=col]:first-of-type {
   background-color: #00a149;
 }
@@ -16962,9 +17053,6 @@ main.guest section.offers div[class*=col]:first-of-type h2 {
 }
 main.guest section.offers div[class*=col]:first-of-type span {
   color: #ffc222;
-}
-main.guest section.offers div[class*=col]:first-of-type:after {
-  background-image: url("../images/offers_01.png");
 }
 main.guest section.offers div[class*=col]:nth-of-type(2) {
   background-color: #db731e;
@@ -16976,9 +17064,6 @@ main.guest section.offers div[class*=col]:nth-of-type(2) h2 {
 main.guest section.offers div[class*=col]:nth-of-type(2) span {
   color: #ffc222;
 }
-main.guest section.offers div[class*=col]:nth-of-type(2):after {
-  background-image: url("../images/offers_02.png");
-}
 main.guest section.offers div[class*=col]:last-of-type {
   background-color: #ffc900;
 }
@@ -16988,9 +17073,6 @@ main.guest section.offers div[class*=col]:last-of-type h2 {
 }
 main.guest section.offers div[class*=col]:last-of-type span {
   color: #1e1d23;
-}
-main.guest section.offers div[class*=col]:last-of-type:after {
-  background-image: url("../images/offers_03.png");
 }
 
 h1.pippo {

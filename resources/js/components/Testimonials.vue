@@ -7,10 +7,10 @@
         </div>
         <div class="row">
             <div class="col-12">
-                <div class="carousel" ref="testimonial_carousel">
-                    <span class="fal fa-chevron-circle-left controls prev" id="prev"></span>
+                <div class="carousel" ref="carousel">
+                    <span class="fal fa-chevron-circle-left controls prev" id="prev" @click="prev()"></span>
                     <transition-group tag="ul" class="list-unstyled mb-4" name="carousel">
-                        <li class="tile" v-for="(testimonial, key) in testimonials" :key="testimonial.id" v-if="checkVisibilityTiles(key)">
+                        <li class="tile" v-for="testimonial in testimonials" :key="testimonial.id">
                             <div class="header">
                                 <div class="avatar">
                                     <img :src="testimonial.avatar" :alt="testimonial.name">
@@ -22,7 +22,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <p class="description" v-for="(review, index) in testimonial.reviews" v-if="index == 0">
+                            <p class="description" v-for="(review, i) in testimonial.reviews" v-if="i == 0">
                                 "{{ review.description }}"
                             </p>
                         </li>
@@ -44,14 +44,15 @@
 <script>
     export default {
         name: 'Testimonials',
+        props: {
+            visibleTestimonials: Number,
+        },
         mounted() {
             this.testimonialsList();
         },
         data(){
             return {
                 testimonials: [],
-                visibleTestimonials: 9,
-                visibleTiles: [0, 1, 2],
             }
         },
         methods: {
@@ -60,33 +61,21 @@
                 axios
                 .get('http://localhost:8000/api/testimonials')
                 .then(function(response){
-                    self.testimonials = response.data.testimonials;
-                    console.log(self.testimonials);
+                    for (var i = 0; i < self.visibleTestimonials; i++) {
+                        self.testimonials.push(response.data.testimonials[i])
+                    };
+                    console.log(self.testimonials, 'testimonials');
                 })
                 .catch(function() {
                     console.warn('error');
                 })
             },
-            checkVisibilityTiles(i){
-                if (i <= this.visibleTestimonials && this.visibleTiles.includes(i)) {
-                    return true
-                }
-            },
             next(){
-                // let visibleTilesNew = [];
-                // for (var i = 0; i < this.visibleTiles.length; i++) {
-                //
-                //     if (this.visibleTiles[i] == this.visibleTestimonials) {
-                //         let newIndex = 0;
-                //         visibleTilesNew.push(newIndex);
-                //     } else {
-                //         let newIndex = this.visibleTiles[i] + 1;
-                //         visibleTilesNew.push(newIndex);
-                //     }
-                // };
-                // this.visibleTiles = visibleTilesNew;
-                // console.log(this.visibleTiles);
+
             },
+            prev(){
+                
+            }
         }
     }
 </script>

@@ -21,6 +21,8 @@ window.Vue = require('vue');
 
 Vue.component('home-vue', require('./views/Home.vue').default);
 Vue.component('product-vue', require('./views/Product.vue').default);
+Vue.component('shopping-vue', require('./views/Shopping.vue').default);
+Vue.component('checkout-vue', require('./views/Checkout.vue').default);
 
 Vue.mixin({ methods: { route }});
 

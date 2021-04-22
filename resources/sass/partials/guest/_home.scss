@@ -6,6 +6,7 @@ main.guest {
         background-repeat: no-repeat;
         background-position: 80% 0;
         position: relative;
+        overflow: hidden;
 
         &:after {
             content: '';
@@ -27,9 +28,57 @@ main.guest {
             z-index: 1;
         }
 
+        img[alt='hero-top-left'] {
+            position: absolute;
+            opacity: 0;
+            height: 70%;
+            left: -5%;
+            top: 0;
+            z-index: 1;
+        }
+
+        img[alt='hero-top-right'] {
+            position: absolute;
+            opacity: 0;
+            height: 15%;
+            right: -10%;
+            top: 5%;
+            z-index: 1;
+        }
+
+        img[alt='hero-bottom-right'] {
+            position: absolute;
+            opacity: 0;
+            height: 15%;
+            right: 5%;
+            bottom: 5%;
+            z-index: 1;
+        }
+
+        img[alt='hero-middle-top'] {
+            position: absolute;
+            opacity: 0;
+            height: 60%;
+            left: 50%;
+            top: -25%;
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+
+        img[alt='hero-middle-bottom'] {
+            position: absolute;
+            height: 30%;
+            transform: translateX(-50%);
+            right: 15%;
+            bottom: 20%;
+            opacity: 0;
+            z-index: 0;
+        }
+
         .call-to-action {
             padding: 250px 0;
             position: relative;
+            opacity: 0;
             z-index: 3;
 
             h2 {
@@ -83,18 +132,20 @@ main.guest {
                 }
             }
         }
-
-        a[name='menus'] {
-            @include button ($primary, $dark, #eeac00, $light);
-            position: absolute;
-            left: 50%;
-            bottom: 0;
-            transform: translateY(50%);
-        }
     }
 
     section.categories {
         padding: 50px 0;
+        position: relative;
+
+        a[name='menus'] {
+            @include button ($primary, $dark, #eeac00, $light);
+            margin: 0;
+            position: absolute;
+            left: 50%;
+            top: 0;
+            transform: translate(-50%, calc(-50% - 50px));
+        }
 
         ul {
             @include flex(row, space-between, stretch);
@@ -266,8 +317,6 @@ main.guest {
         }
 
         div.dishes {
-            @include flex(row, flex-start, center);
-            flex-wrap: wrap;
             position: relative;
             padding-bottom: 20px;
 
@@ -294,138 +343,169 @@ main.guest {
                 z-index: -1;
             }
 
-            .tile {
-                width: calc((100% / 4) - 30px);
-                margin: 0 15px;
-                border: 1px solid #e5e5e5;
-                border-radius: 30px;
-                padding: 10px;
-                background: $light;
-                height: 470px;
-                padding: 20px 30px;
-                position: relative;
-                margin-bottom: 30px;
+            .tiles-wrappper {
+                @include flex(row, flex-start, center);
+                flex-wrap: wrap;
 
-                &:hover {
-                    text-decoration: none;
+                .dishes_tiles-enter {
+                    top: 70px;
+                    opacity: 0;
                 }
 
-                h2 {
-                    font-size: 18px;
-                    font-weight: 700;
-                    color: $dark;
-                }
-
-                &:hover {
-                    cursor: pointer;
-                }
-
-                .wishlist {
-                    position: absolute;
-                    color: #dfdfdf;
-                    top: 20px;
-                    right: 20px;
-                    font-size: 21px;
-                    z-index: 3;
-
-                    &:hover {
-                        cursor: pointer;
-                        color: $dark;
-                    }
-                }
-
-                .cover {
-                    position: relative;
-                    margin-bottom: 10px;
-
-                    .overlay {
-                        position: absolute;
-                        z-index: 1;
-                        bottom: 0;
-                        left: 0;
-                        width: 100%;
-                        height: 50%;
-                        border-radius: 20px;
-                        background-color: $primary;
-                        transition: all .3s ease;
-                        opacity: .2;
-                    }
-
-                    img {
-                        position: relative;
-                        z-index: 2;
-                        width: 100%;
-                        transition: all .3s ease;
-                    }
-                }
-
-                &:hover .overlay {
-                    height: 100%;
+                .dishes_tiles-enter-to, .dishes_tiles-leave-to {
+                    top: 0;
                     opacity: 1;
                 }
 
-                &:hover .cover img {
-                    transform: scale(1.2);
+                .dishes_tiles-leave-to {
+                    top: -70px;
+                    opacity: 0;
                 }
 
-                .rating {
-                    span {
-                        color: $primary;
+                .dishes_tiles-enter-active, .dishes_tiles-enter-active {
+                    transition: all .7s ease;
+                }
+
+                .tile {
+                    width: calc((100% / 4) - 30px);
+                    margin: 0 15px;
+                    border: 1px solid #e5e5e5;
+                    border-radius: 30px;
+                    padding: 10px;
+                    background: $light;
+                    height: 470px;
+                    padding: 20px 30px;
+                    position: relative;
+                    margin-bottom: 30px;
+                    position: relative;
+
+                    &:hover {
+                        text-decoration: none;
                     }
-                }
 
-                .details {
-                    a {
+                    h2 {
                         font-size: 18px;
                         font-weight: 700;
                         color: $dark;
                     }
 
-                    p {
-                        font-size: 14px;
-                        font-weight: 400;
-                        color: #808080;
-                        line-height: 1.5;
-                        margin-bottom: 30px;
+                    &:hover {
+                        cursor: pointer;
                     }
 
-                    div.price {
+                    .wishlist {
                         position: absolute;
-                        left: 30px;
-                        bottom: 25px;
+                        color: #dfdfdf;
+                        top: 20px;
+                        right: 20px;
+                        font-size: 21px;
+                        z-index: 3;
 
-                        span {
-                            font-size: 20px;
-                            font-weight: 700;
+                        &:hover {
+                            cursor: pointer;
+                            color: $dark;
+                        }
+                    }
 
-                            &:first-of-type {
-                                text-decoration: line-through;
-                                color: $lightgray;
-                            }
+                    .cover {
+                        position: relative;
+                        margin-bottom: 10px;
+                        height: 60%;
 
-                            &:last-of-type {
-                                color: $primary;
+                        .overlay {
+                            position: absolute;
+                            z-index: 1;
+                            bottom: 0;
+                            left: 0;
+                            width: 100%;
+                            height: 50%;
+                            border-radius: 20px;
+                            background-color: $primary;
+                            transition: all .3s ease;
+                            opacity: .2;
+                        }
+
+                        img {
+                            position: relative;
+                            z-index: 2;
+                            width: 100%;
+                            transition: all .6s ease;
+                            filter: blur(20px);
+
+                            &.loaded {
+                                filter: blur(0);
                             }
                         }
                     }
-                }
-                .cart {
-                    @include flex(row, center, center);
-                    position: absolute;
-                    bottom: 20px;
-                    right: 20px;
-                    width: 40px;
-                    height: 40px;
-                    background-color: $primary;
-                    border-radius: 10px;
-                    background-image: url('../images/cart.svg');
-                    background-size: 60%;
-                    background-repeat: no-repeat;
-                    background-position: center;
 
-                    &:hover {
-                        background-image: url('../images/cart.png');
-                        background-color: #eeac00;
+                    &:hover .overlay {
+                        height: 100%;
+                        opacity: 1;
+                    }
+
+                    &:hover .cover img {
+                        transform: scale(1.2);
+                    }
+
+                    .rating {
+                        span {
+                            color: $primary;
+                        }
+                    }
+
+                    .details {
+                        a {
+                            font-size: 18px;
+                            font-weight: 700;
+                            color: $dark;
+                        }
+
+                        p {
+                            font-size: 14px;
+                            font-weight: 400;
+                            color: #808080;
+                            line-height: 1.5;
+                            margin-bottom: 30px;
+                        }
+
+                        div.price {
+                            position: absolute;
+                            left: 30px;
+                            bottom: 25px;
+
+                            span {
+                                font-size: 20px;
+                                font-weight: 700;
+
+                                &:first-of-type {
+                                    text-decoration: line-through;
+                                    color: $lightgray;
+                                }
+
+                                &:last-of-type {
+                                    color: $primary;
+                                }
+                            }
+                        }
+                    }
+                    .cart {
+                        @include flex(row, center, center);
+                        position: absolute;
+                        bottom: 20px;
+                        right: 20px;
+                        width: 40px;
+                        height: 40px;
+                        background-color: $primary;
+                        border-radius: 10px;
+                        background-image: url('../images/cart.svg');
+                        background-size: 60%;
+                        background-repeat: no-repeat;
+                        background-position: center;
+
+                        &:hover {
+                            background-image: url('../images/cart.png');
+                            background-color: #eeac00;
+                        }
                     }
                 }
             }
@@ -566,7 +646,7 @@ main.guest {
                 overflow: hidden;
 
                 .tile {
-                    width: calc((100% / 3) - 20px);
+                    width: calc((100% / 3) - 30px);
                     height: 250px;
                     background-color: $light;
                     border-radius: 8px;
@@ -687,6 +767,32 @@ main.guest {
             overflow: hidden;
             position: relative;
 
+            img {
+                position: absolute;
+                z-index: 0;
+                right: -100%;
+                top: 50%;
+                transform: translateY(-50%);
+                height: 80%;
+                width: 100%;
+                opacity: 0;
+
+                &.active {
+                    animation: offerLazy 1s ease forwards;
+
+                    @keyframes offerLazy {
+                        0% {
+                            opacity: 0;
+                            right: -100%;
+                        }
+                        100% {
+                            opacity: 1;
+                            right: -40%;
+                        }
+                    }
+                }
+            }
+
             div.description {
                 position: relative;
                 z-index: 3;
@@ -748,20 +854,6 @@ main.guest {
             &:hover:before {
                 transform: translateY(-50%) scale(1);
             }
-
-            &:after {
-                content: '';
-                background-size: auto 100%;
-                background-repeat: no-repeat;
-                background-position: left;
-                position: absolute;
-                z-index: 1;
-                right: -40%;
-                top: 50%;
-                transform: translateY(-50%);
-                height: 80%;
-                width: 100%;
-            }
         }
 
         div[class*="col"]:first-of-type {
@@ -774,10 +866,6 @@ main.guest {
 
             span {
                 color: $primary;
-            }
-
-            &:after {
-                background-image: url('../images/offers_01.png');
             }
         }
 
@@ -792,10 +880,6 @@ main.guest {
             span {
                 color: $primary;
             }
-
-            &:after {
-                background-image: url('../images/offers_02.png');
-            }
         }
 
         div[class*="col"]:last-of-type {
@@ -808,10 +892,6 @@ main.guest {
 
             span {
                 color: $dark;
-            }
-
-            &:after {
-                background-image: url('../images/offers_03.png');
             }
         }
     }

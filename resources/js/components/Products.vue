@@ -10,29 +10,34 @@
         <div class="col-12">
             <div class="row">
                 <div class="col-12 dishes">
-                    <a :href="route('product', {slug: product.slug})" class="tile" v-for="(product, index) in filteredProducts">
-                        <div class="wishlist">
-                            <span class="fas fa-heart"></span>
-                        </div>
-                        <div class="cover">
-                            <img :src="product.images[0].image" :alt="product.name">
-                            <div class="overlay"></div>
-                        </div>
-                        <div class="rating">
-                            <span v-for="i in 5" class="fa-star" :class="i <= stars(index) ? 'fas' : 'fal'"></span>
-                        </div>
-                        <div class="details">
-                            <h2> {{ product.name }} </h2>
-                            <p> {{ product.short_description }} </p>
-                            <div class="price">
-                                <span class="mr-2"> ${{ beforePrice(product.configs[0].price, product.configs[0].discount) }} </span>
-                                <span> ${{ product.configs[0].price }} </span>
+                    <transition-group
+                        tag="div"
+                        class="tiles-wrappper"
+                        name="dishes_tiles">
+                        <a :href="route('product', {slug: product.slug})" class="tile" v-for="(product, index) in filteredProducts" :key="product.id">
+                            <div class="wishlist">
+                                <span class="fas fa-heart"></span>
                             </div>
-                        </div>
-                        <div class="cart">
-                            <!-- cart image -->
-                        </div>
-                    </a>
+                            <div class="cover">
+                                <img :src="product.images[0].image" :alt="product.name" @load="imgLoad(index)" class="dish-cover">
+                                <div class="overlay"></div>
+                            </div>
+                            <div class="rating">
+                                <span v-for="i in 5" class="fa-star" :class="i <= stars(index) ? 'fas' : 'fal'"></span>
+                            </div>
+                            <div class="details">
+                                <h2> {{ product.name }} </h2>
+                                <p> {{ product.short_description }} </p>
+                                <div class="price">
+                                    <span class="mr-2"> ${{ beforePrice(product.configs[0].price, product.configs[0].discount) }} </span>
+                                    <span> ${{ product.configs[0].price }} </span>
+                                </div>
+                            </div>
+                            <div class="cart">
+                                <!-- cart image -->
+                            </div>
+                        </a>
+                    </transition-group>
                     <img src="images/bg-dishes-pizza.png" alt="pizza">
                     <img src="images/bg-dishes-meat.png" alt="meat">
                     <img src="images/bg-dishes-pepper.png" alt="pepper">
@@ -108,6 +113,10 @@
                     avgScore = sumScores / (this.filteredProducts[index].reviews.length);
                     return avgScore;
                 }
+            },
+            imgLoad(i){
+                document.getElementsByClassName('dish-cover')[i].classList.add('loaded');
+                console.log(i);
             }
         }
     }

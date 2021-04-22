@@ -36,8 +36,9 @@ export default {
         .get('http://localhost:8000/api/products/all')
         .then(function(response){
             self.products = response.data.products;
-            console.log(self.products);
-        })
+        }).catch(function() {
+            console.warn('error');
+        });
     },
     data(){
         return {

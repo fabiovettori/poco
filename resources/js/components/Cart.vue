@@ -32,8 +32,8 @@
                     <strong> ${{ totalCart }} </strong>
                 </div>
                 <div class="actions">
-                    <a href="#">checkout</a>
-                    <a href="#">view cart</a>
+                    <a :href="route('checkout')">checkout</a>
+                    <a :href="route('shopping')">view cart</a>
                 </div>
             </div>
         </div>

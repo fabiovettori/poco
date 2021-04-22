@@ -1,6 +1,6 @@
 <template>
     <ul class="list-unstyled">
-        <li v-for="(category, index) in categories">
+        <li class="cat-restaurant" v-for="(category, index) in categories" :class="lazy ? 'active' : ''">
             <img :src="category.cover" :alt="category.name">
             <span> {{ category.name }} </span>
         </li>
@@ -10,6 +10,9 @@
 <script>
     export default {
         name: 'Categories',
+        props: {
+            lazy: Boolean,
+        },
         mounted() {
             this.categoriesMenu();
         },
@@ -33,3 +36,29 @@
         }
     }
 </script>
+
+<style lang="scss">
+    .categories {
+        .cat-restaurant {
+            opacity: 0;
+            position: relative;
+
+            @for $i from 1 through 8 {
+                &.active:nth-of-type(#{$i}) {
+                    animation: lazyCat .3s ease $i*.1 + s forwards;
+                }
+            }
+        }
+    }
+
+    @keyframes lazyCat {
+        0% {
+            opacity: 0;
+            top: 80px;
+        }
+        100% {
+            opacity: 1;
+            top: 0;
+        }
+    }
+</style>

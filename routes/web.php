@@ -19,5 +19,7 @@ Auth::routes();
 Route::namespace('Guest')->group(function(){
     Route::get('/', 'HomeController@index')->name('home');
     Route::get('/poco/shop/', 'ShopController@index')->name('shop');
+    Route::get('/poco/shopping/', 'ShoppingController@show')->name('shopping');
+    Route::get('/poco/checkout/', 'CheckoutController@show')->name('checkout');
     Route::get('/poco/product/{slug}', 'ProductController@show')->name('product');
 });
